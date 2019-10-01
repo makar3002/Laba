@@ -8,11 +8,8 @@ body {
   background-color: #2c3e50;
 }
 
-a:link,
-a:visited,
-a:hover,
-a:active {
-  color: #c0392b;
+a:link {
+  color: white;
 }
 
 /* Header */
@@ -21,9 +18,13 @@ header.page-header {
   z-index: 5;
   min-height: 20px;
   padding: 20px;
-  color: white;
   background-color: #2c3e50;
   box-shadow: 0 0 5px 0 #333333;
+  border-bottom: 1px solid #000934 !important;
+}
+
+header a {
+
 }
 
 div.logo {
@@ -85,7 +86,7 @@ article.entry {
 section.idea {
   float: left;
   width: 49%;
-  height: 180px;
+  height: 100%;
 
   min-height: 100px;
   padding: 2%;
@@ -119,7 +120,7 @@ section.idea {
 section.contacts {
   float: right;
   width: 49%;
-  height: 180px;
+  height: 100%;
   min-height: 100px;
   padding: 2%;
   background-color: rgba(243, 156, 18, 0.1);
@@ -178,18 +179,23 @@ figure.slides {
 /* Footer */
 footer.page-footer {
   min-height: 50px;
+  max-height: 70px;
   padding: 20px;
   font-size: 14px;
   color: black;
   background-color: #f1c40f;
-  background-image:
-    linear-gradient(45deg, transparent 50%, white 50%),
-    linear-gradient(-45deg, transparent 50%, white 50%),
-    linear-gradient(135deg, transparent 50%, #2c3e50 50%),
-    linear-gradient(-135deg, transparent 50%, #2c3e50 50%);
+  border-top: 1px solid #c7a500 !important;
   background-repeat: repeat-x;
   background-position: 0 0, 0 0, 0 100%, 0 100%;
   background-size: 12px 12px;
+  box-shadow: 0 0 5px 0 #333333;
+}
+
+.podfooter {
+  height: 25px;
+  width: 100%;
+  background-color: #2C3E50;
+  box-shadow: 0 0 5px 0 #333333;
 }
 
 .page-footer::after {
