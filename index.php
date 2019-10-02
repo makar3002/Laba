@@ -11,32 +11,22 @@
     session_start();
     ?>
     <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom page-header">
-        <h5 class="my-0 mr-md-auto font-weight-normal text-light">ГаражQ</h5>
+        <a class="main-label my-0 mr-md-auto font-weight-normal text-light" href = "index.php">ГаражQ</a>
         <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-light" href="autos.html">Автомобили</a>
-        <a class="p-2 text-light" href="owners.html">Владельцы</a>
+        <a class="p-2 text-light" href="autos.php">Автомобили</a>
+        <a class="p-2 text-light" href="owners.php">Владельцы</a>
         <a class="p-2 text-light" href="#">Список сторожей</a>
-            <?php
-            if (!isset($_SESSION['email'])){
-                ?>
-                <a class="p-2 text-light" <?php echo 'href="#"' ?> > Журнал</a>
-                <?php
-            } else {
-                ?>
-                <a class="p-2 text-light" <?php echo 'href="journal.php"' ?> > Журнал</a>
-                <?php
-            }
-            ?>
+        <a class="p-2 text-light" href="journal.php"?>Журнал</a>
         </nav>
         <div class="col-4 d-flex justify-content-end align-items-center">
+
+            <a class="btn btn-sm btn-outline-secondary"
             <?php
             if (!isset($_SESSION['email'])){
-                ?>
-                <a class="btn btn-sm btn-outline-secondary " <?php echo "href='auth.php'" ?> > Sign up</a>
+                echo "href='auth.php'" ?> > Sign in</a>
                 <?php
             } else {
-                ?>
-                <a class="btn btn-sm btn-outline-secondary " <?php echo "href='php/logout.php'" ?> > Sign out</a>
+                echo "href='php/logout.php'" ?> > Sign out</a>
                 <?php
             }
             ?>

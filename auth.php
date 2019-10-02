@@ -19,7 +19,7 @@
         session_start();
         require ('php/connect.php');
         include ('php/check_format.php');
-
+        if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (isset($_POST['email']) and isset($_POST['password'])) {
                 //if (check_format($_POST['email'], 'email')){
@@ -37,7 +37,8 @@
 
                     if (isset($_SESSION['email']) && !isset($fmsg)) {
                         $email = $_SESSION['email'];
-                        header("Location: index.php");
+                        $location = $_SESSION['referer'];
+                        header("Location: $location");
                     }
                 //}
 
@@ -76,15 +77,16 @@
                 </div>
 
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-                <a href = "php/logout.php" class="btn btn-lg btn-primary btn-block" type="submit">Выйти</a>
             </form>
         </main>
 
 
-        <footer class="page-footer">
+
+        <footer class="border-top page-footer border-top">
             <section class="copyright">
                 © 2019 Mathfuc
             </section>
         </footer>
+        <div class="podfooter"></div>
     </body>
 </html>

@@ -8,9 +8,15 @@ body {
   background-color: #2c3e50;
 }
 
-a:link {
+.main-label {
+  padding-top: 1px;
+  font-size: 20px;
+}
+
+header a:link {
   color: white;
 }
+
 
 /* Header */
 header.page-header {
@@ -23,8 +29,9 @@ header.page-header {
   border-bottom: 1px solid #000934 !important;
 }
 
-header a {
-
+header .btn {
+  color: white !important;
+  border-color: white !important;
 }
 
 div.logo {
@@ -70,7 +77,8 @@ main::after,
 
 article.entry {
   min-height: 100px;
-  margin: 0 20px;
+  margin: 20px;
+  margin-top: 0px;
   padding: 10px;
   background-color: rgba(241, 196, 15, 0.1);
   border-radius: 5px;
