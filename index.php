@@ -16,7 +16,7 @@
         <a class="p-2 text-light" href="autos.php">Автомобили</a>
         <a class="p-2 text-light" href="owners.php">Владельцы</a>
         <a class="p-2 text-light" href="#">Список сторожей</a>
-        <a class="p-2 text-light" href="journal.php"?>Журнал</a>
+        <a class="p-2 text-light" href="journal.php">Журнал</a>
         </nav>
         <div class="col-4 d-flex justify-content-end align-items-center">
 
@@ -65,6 +65,6 @@
         © 2019 Mathfuc
       </section>
     </footer>
-    <div class="podfooter"></div>
+    <div class="podfooter"></div> <!--Нужен для тени в нижней части желтой полосы-->
     </body>
 </html>

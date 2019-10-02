@@ -22,17 +22,20 @@
         if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (isset($_POST['email']) and isset($_POST['password'])) {
-                //if (check_format($_POST['email'], 'email')){
+                if (check_format($_POST['email'], 'email')){
                     $email = $_POST['email'];
-
                     $password = mysqli_real_escape_string($connection, $_POST['password']);
-                    $query = "SELECT * FROM users WHERE email = '$email' and password = '$password'";
+                    $query = "SELECT * FROM users WHERE email = '$email'";
                     $result = mysqli_query($connection, $query);
+                    $row = mysqli_fetch_row($result);
                     $count = mysqli_num_rows($result);
                     if ($count == 1) {
-                        $_SESSION['email'] = $email;
+                        if (password_verify($password, $row[2])) $_SESSION['email'] = $email;
+                        else $fmsg = "Ошибка, неверный email или пароль";
+                    } elseif ($count == 0) {
+                        $fmsg = "Ошибка, неверный email или пароль";
                     } else {
-                        $fmsg = "Ошибка, неверный логин или пароль";
+                        $fmsg = "Ошибка, что-то пошло не так, повторите попытку позже";
                     }
 
                     if (isset($_SESSION['email']) && !isset($fmsg)) {
@@ -40,8 +43,9 @@
                         $location = $_SESSION['referer'];
                         header("Location: $location");
                     }
-                //}
-
+                } else {
+                    $fmsg = "Ошибка, неверный формат почты";
+                }
             }
         }
         ?>
