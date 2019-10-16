@@ -38,6 +38,7 @@ session_start();
         <table class="table">
         <?php
         require ('php/connect.php');
+        $connection = connect('authorization');
         include ('php/check_format.php');
         if (isset($_SESSION['email'])) {
             $email = $_SESSION['email'];

@@ -17,41 +17,44 @@
         </header>
         <?php
         session_start();
-        require ('php/connect.php');
-        include ('php/check_format.php');
-        if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            if (isset($_POST['email']) and isset($_POST['password'])) {
-                if (check_format($_POST['email'], 'email')){
-                    $email = $_POST['email'];
-                    $password = mysqli_real_escape_string($connection, $_POST['password']);
-                    $query = "SELECT * FROM users WHERE email = '$email'";
-                    $result = mysqli_query($connection, $query);
-                    $row = mysqli_fetch_row($result);
-                    $count = mysqli_num_rows($result);
-                    if ($count == 1) {
-                        if (password_verify($password, $row[2])) $_SESSION['email'] = $email;
-                        else $fmsg = "Ошибка, неверный email или пароль";
-                    } elseif ($count == 0) {
-                        $fmsg = "Ошибка, неверный email или пароль";
-                    } else {
-                        $fmsg = "Ошибка, что-то пошло не так, повторите попытку позже";
-                    }
+        require_once('php/connect.php');
+        $connection = connect('authorization');
+        require_once('php/check_format.php');
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                if (isset($_POST['email']) and isset($_POST['password'])) {
+                    if (check_format($_POST['email'], 'email')) {
+                        $email = mysqli_real_escape_string($connection, $_POST['email']);
+                        $password = mysqli_real_escape_string($connection, $_POST['password']);
+                        $query = "SELECT * FROM users WHERE email = '$email'";
+                        $result = mysqli_query($connection, $query);
+                        $row = mysqli_fetch_row($result);
+                        $count = mysqli_num_rows($result);
+                        if ($count == 1) {
+                            if (password_verify($password, $row[2])) $_SESSION['email'] = $email;
+                            else $fmsg = "Ошибка, неверный email или пароль";
+                        } elseif ($count == 0) {
+                            $fmsg = "Ошибка, неверный email или пароль";
+                        } else {
+                            $fmsg = "Ошибка, что-то пошло не так, повторите попытку позже";
+                        }
 
-                    if (isset($_SESSION['email']) && !isset($fmsg)) {
-                        $email = $_SESSION['email'];
-                        $location = $_SESSION['referer'];
-                        header("Location: $location");
+                        if (isset($_SESSION['email']) && !isset($fmsg)) {
+                            $email = $_SESSION['email'];
+                            $location = $_SESSION['referer'];
+                            header("Location: $location");
+                        }
+                    } else {
+                        $fmsg = "Ошибка, неверный формат почты";
                     }
-                } else {
-                    $fmsg = "Ошибка, неверный формат почты";
                 }
             }
         }
         ?>
 
         <main>
-            <form action = "auth.php" class="form-signin" method="post">
+            <form action = "auth.php" class="form-signin" method="post" id="form">
                 <div class="text-center mb-4">
                     <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
                     <p>Авторизуйтесь на сайте, чтобы пользоваться всеми преимуществами сервиса</p>
