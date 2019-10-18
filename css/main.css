@@ -212,15 +212,22 @@ footer.page-footer {
   clear: both;
 }
 
-.btn {
-  margin-top: 20px;
-}
-
 .form-signin {
   width: 100%;
   max-width: 620px;
   padding: 15px;
   margin: auto;
+  margin-bottom: 50px;
+}
+
+h5{
+  : center;
+}
+
+.alert {
+  max-width: 620px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .page-footer .info {

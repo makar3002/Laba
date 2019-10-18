@@ -86,14 +86,8 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
             </form>
         </main>
-
-
-
-        <footer class="border-top page-footer border-top">
-            <section class="copyright">
-                © 2019 Mathfuc
-            </section>
-        </footer>
-        <div class="podfooter"></div>
+        <?php
+        require_once ('php/footer.php');
+        ?>
     </body>
 </html>
