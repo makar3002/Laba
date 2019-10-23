@@ -10,7 +10,7 @@
 <body>
     <?php
     session_start();
-    require_once ('php/header.php');
+    require_once('php/general/header.php');
     ?>
     <main>
         <article class="entry">
@@ -32,7 +32,7 @@
         </article>
     </main>
     <?php
-    require_once ('php/footer.php');
+    require_once('php/general/footer.php');
     ?>
   </body>
 </html>

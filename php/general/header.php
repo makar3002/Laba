@@ -11,12 +11,13 @@
         <a class="btn btn-sm btn-outline-secondary"
             <?php
             if (!isset($_SESSION['email'])){
-            echo "href='auth.php'" ?> > Sign in</a>
-        <?php
-        } else {
-            echo "href='php/logout.php'" ?> > Sign out</a>
+                echo "href='auth.php'" ?> > Sign in
             <?php
-        }
-        ?>
+            } else {
+                echo "href='php/logout.php'" ?> > Sign out
+            <?php
+            }
+            ?>
+        </a>
     </div>
 </header>

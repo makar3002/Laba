@@ -9,7 +9,7 @@
 <body>
     <?php
     session_start();
-    require_once ('php/header.php');
+    require_once('php/general/header.php');
     ?>
     <main>
         <form class="form-signin" id="form" enctype="application/x-www-form-urlencoded" >
@@ -28,7 +28,7 @@
         <script src="js/anti_filth.js" type="text/javascript"></script>
     </main>
     <?php
-    require_once ('php/footer.php');
+    require_once('php/general/footer.php');
     ?>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-require_once('connect.php');
+require_once('../general/connect.php');
 require_once('change_text.php');
 $connection = connect('authorization');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {

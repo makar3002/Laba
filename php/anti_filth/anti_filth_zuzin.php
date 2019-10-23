@@ -1,5 +1,5 @@
 <?php
-	require_once('connect.php');
+	require_once('../general/connect.php');
 	$connection = connect('authorization');
 	setlocale(LC_ALL, 'ru_RU.UTF-8');
 	if ($_SERVER['REQUEST_METHOD'] == "POST") 

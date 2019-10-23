@@ -13,7 +13,7 @@ function ajax_request(button){
                 }
             }
         });
-        request_open(button, request, 'php/anti_filth_makarenko.php', 'php/anti_filth_zuzin.php')
+        request_open(button, request, 'php/anti_filth/anti_filth_makarenko.php', 'php/anti_filth/anti_filth_zuzin.php')
         var data = new FormData(document.getElementById('form'));
         request.send(data);
     })
@@ -35,7 +35,7 @@ function text_change(button, request){
     } else {
         text = document.getElementById('polite_text_zuzin');
     }
-    text.innerHTML = request.responseText;
+    text.innerHTML = request.responseText !== '' ? request.responseText : 'Вы ничего не ввели';
 }
 
 document.addEventListener("DOMContentLoaded",function() {

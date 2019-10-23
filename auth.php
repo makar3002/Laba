@@ -17,9 +17,9 @@
         </header>
         <?php
         session_start();
-        require_once('php/connect.php');
+        require_once('php/general/connect.php');
         $connection = connect('authorization');
-        require_once('php/check_format.php');
+        require_once('php/auth/check_format.php');
         if (isset($_SERVER['HTTP_REFERER'])) {
             if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -87,7 +87,7 @@
             </form>
         </main>
         <?php
-        require_once ('php/footer.php');
+        require_once('php/general/footer.php');
         ?>
     </body>
 </html>
