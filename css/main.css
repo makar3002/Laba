@@ -8,6 +8,10 @@ body {
   background-color: #2c3e50;
 }
 
+td {
+  text-align: center;
+}
+
 .main-label {
   padding-top: 1px;
   font-size: 20px;
@@ -59,11 +63,16 @@ nav.main-menu ul {
   color: white;
 }
 
+h1, h2, h5{
+  padding: 18px;
+  text-align: center;
+}
+
 /* Main */
 main {
   min-height: 200px;
-  padding-top: 50px;
   color: black;
+  padding-top: 20px;
   background-color: white;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAMAAAApB0NrAAAABlBMVEX///+pqalTpKl9AAAAAnRSTlMAGovxNEIAAAAdSURBVDjLY2AAAUaG4UYxDDsfjfp91O+jfqfE7wCzpQCw/dq+qQAAAABJRU5ErkJggg==");
 }
@@ -77,11 +86,9 @@ main::after,
 
 article.entry {
   min-height: 100px;
-  margin: 20px;
-  margin-top: 0px;
-  padding: 10px;
+  margin: 0 60px 40px;
   background-color: rgba(241, 196, 15, 0.1);
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 3px #cccccc;
 }
 
@@ -93,13 +100,12 @@ article.entry {
 
 section.idea {
   float: left;
-  width: 49%;
-  height: 100%;
-
+  width: 50%;
+  height: auto;
   min-height: 100px;
   padding: 2%;
   background-color: rgba(243, 156, 18, 0.1);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .idea > p {
@@ -127,12 +133,12 @@ section.idea {
 
 section.contacts {
   float: right;
-  width: 49%;
+  width: 50%;
   height: 100%;
   min-height: 100px;
   padding: 2%;
   background-color: rgba(243, 156, 18, 0.1);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .contacts > p {

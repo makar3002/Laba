@@ -13,7 +13,7 @@
     require_once('php/general/header.php');
     ?>
     <main>
-        <article class="entry">
+        <article class="m-5 entry">
             <section>
                 <table class="T">
                     <tr>

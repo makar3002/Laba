@@ -12,7 +12,7 @@
     require_once('php/general/header.php');
     ?>
     <main>
-        <article class="entry">
+        <article class="m-5 entry">
             <table class="table" align="center">
             <?php
             require_once ('php/journal/user_journal.php');

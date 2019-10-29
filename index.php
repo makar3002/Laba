@@ -11,16 +11,16 @@
     session_start();
     require_once('php/general/header.php');
     ?>
-    <main>
-      <article class="entry">
-        <section class="idea">
+    <main class="pt-5">
+      <article class=" d-flex entry">
+        <section class="m-3 idea">
           <h2>Автомобильный гараж</h2>
           <h1>У нас только лучшие тачки!</h1>
           <p>Качественный сервис, Экзибит позавидует!</p>
           <p>Охрана и хранение вашей ласточки</p>
           <p>Охрана и хранение вашей ласточки</p>
         </section>
-        <section class="contacts">
+        <section class="m-3 contacts">
           <h1>Контакты: </h1>
           <p>///...///</p>
           <p>///...///</p>
