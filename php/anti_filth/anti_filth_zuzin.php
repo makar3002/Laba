@@ -1,6 +1,6 @@
 <?php
 	require_once('../general/connect.php');
-	$connection = connect('authorization');
+	$connection = connect1('authorization', 'root', '');
 	setlocale(LC_ALL, 'ru_RU.UTF-8');
 	if ($_SERVER['REQUEST_METHOD'] == "POST") 
 	{
@@ -10,11 +10,11 @@
 			$text = $_POST['input_text'];
 			$polite_text = '';
 			$query = "SET NAMES utf8";
-			mysqli_query($connection, $query);
-			mb_internal_encoding("utf8");
+			$connection->prepare($query)->execute();
 			$query = "SELECT * FROM bad_words";
-			$result = mysqli_query($connection, $query);
-			$badwords_array = array_column(mysqli_fetch_all($result), 1);
+			$sdh = $connection->prepare($query);
+			$sdh->execute();
+			$badwords_array = array_column($sdh->fetchAll(), 1);
 			$text_array = explode(" ", $text);
 			$fl = false;
 			foreach ($text_array as $text_part)

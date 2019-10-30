@@ -6,6 +6,12 @@ function check_format ($data, $type){
             if (preg_match($pattern, $data)) {
                 return true;
             }
+            return false;
+        case 'string':
+            foreach ($data as $char) {
+                if (is_numeric($char)) return false;
+            }
+            return true;
             break;
         default:
             return false;

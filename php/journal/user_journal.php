@@ -1,25 +1,23 @@
 <?php
 require_once('php/general/connect.php');
-$connection = connect('authorization');
-include_once('php/auth/check_format.php');
-if (isset($_SESSION['email'])) {
+$connection = connect1('authorization', 'root', '');
+if (isset($_SESSION['email']) && isset($_SESSION['user_id']) ) {
     $email = $_SESSION['email'];
     ?>
     <h5>Журнал с данными пользователся <?php echo "$email" ?>!</h5>
     <?php
-    $query = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($connection, $query);
-    $row = mysqli_fetch_row($result);
-    $user_id = $row[0];
-    $query = "SELECT number, brand, date, status FROM cars WHERE user_id = '$user_id'";
-    $result = mysqli_query($connection, $query);
-    $table = mysqli_fetch_all($result);
+    $user_id = $_SESSION['user_id'];
+    $query = "SELECT number, brand, date, status FROM cars WHERE user_id = ?";
+    $sdh = $connection->prepare($query);
+    $sdh->execute(array($user_id));
+    $table = $sdh->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($table[0] as $r) echo 1;
     ?>
     <tr>
-        <td>Номер автомобиля</td>
-        <td>Марка</td>
-        <td>Дата принятия</td>
-        <td>Статус</td>
+        <td width="25%">Номер автомобиля</td>
+        <td width="25%">Марка</td>
+        <td width="25%">Дата принятия</td>
+        <td width="25%">Статус</td>
     </tr>
     <?php
     foreach ($table as $r) {
@@ -28,7 +26,7 @@ if (isset($_SESSION['email'])) {
             <?php
             foreach ($r as $f) {
                 ?>
-                <td> <?php echo "$f"?> </td>
+                <td width="25%"> <?php echo "$f"?> </td>
                 <?php
             }
             ?>

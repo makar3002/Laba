@@ -1,17 +1,19 @@
 <?php
 require_once('../general/connect.php');
 require_once('change_text.php');
-$connection = connect('authorization');
+$connection = connect1('authorization', 'root', '');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['input_text'])) {
         $text = $_POST['input_text'];
         $polite_text = '';
         mb_internal_encoding('utf-8');
         $query = "SET NAMES utf8";
-        mysqli_query($connection, $query);
+        $connection->prepare($query)->execute();
         $query = "SELECT * FROM bad_words";
-        $result = mysqli_query($connection, $query);
-        $words = array_column(mysqli_fetch_all($result), 1);
+        $sdh = $connection->prepare($query);
+        $sdh->execute();
+
+        $words = array_column($sdh->fetchAll(), 1);
         foreach ($words as $word){
             do  {
                 $position = mb_stripos($text, $word);
