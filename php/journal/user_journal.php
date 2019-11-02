@@ -1,10 +1,13 @@
 <?php
-require_once('php/general/connect.php');
+session_start();
+require_once('../general/connect.php');
 $connection = connect('authorization', 'root', '');
 if (isset($_SESSION['email']) && isset($_SESSION['user_id']) ) {
     $email = $_SESSION['email'];
     ?>
-    <h5>Журнал с данными пользователся <?php echo "$email" ?>!</h5>
+    <caption style="caption-side: top; padding: 0">
+        <h5>Журнал с данными пользователся <?php echo "$email" ?>!</h5>
+    </caption>
     <?php
     $user_id = $_SESSION['user_id'];
     $query = "SELECT number, brand, date, status FROM cars WHERE user_id = ?"; //создаем запрос на получение данных

@@ -10,7 +10,6 @@
     <?php
     session_start();
     require_once('php/general/header.php');
-	require_once("php/journal/add_journal.php");
     ?>
     <main class="pt-5 text-center">
 	<?php if (isset($_SESSION['user_id'])) {?>
@@ -30,7 +29,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="journal.php" class="form" method = "post" id = "form">
+                        <form class="form" id="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
                                 <label for = "Number" class = "col-form-label">Номер Автомобиля:</label>
                                 <input type="text" name="number" id="number" class="form-control" placeholder="Номер Автомобиля" required autofocus>
@@ -47,17 +46,15 @@
                                 <button class="btn btn-primary" type="submit" id="button_add">Добавить</button>
                             </div>
                         </form>
-                        <script src="js/journal.js"></script>
+                        <script src="js/general/ajax_request.js" type="text/javascript"></script>
+                        <script src="js/journal/journal.js"></script>
                     </div>
                 </div>
             </div>
         </div>
 		<?php }?>
         <article class="m-5 entry">
-            <table class="table">
-            <?php
-            require_once ('php/journal/user_journal.php');
-            ?>
+            <table class="table" id="table">
             </table>
         </article>
     </main>

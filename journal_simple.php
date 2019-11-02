@@ -33,7 +33,7 @@
                     </div>
                 </div>
 		    </form>
-		    <script src="js/journal.js"></script>
+		    <script src="js/journal/journal.js"></script>
 		</article>
 		<?php }?>
         <article class="m-5 entry">

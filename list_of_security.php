@@ -12,7 +12,7 @@
     require_once('php/general/header.php');
     ?>
     <main>
-        <form class="form-signin" id="form" enctype="application/x-www-form-urlencoded" >
+        <form class="form-signin" id="form" enctype="application/x-www-form-urlencoded">
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 font-weight-normal">Антимат</h1>
                 <p>Напишите что-нибудь в поле ввода (только культурное)</p>
@@ -25,7 +25,8 @@
             <div class = "alert alert-danger" role = "alert" id="polite_text_zuzin">Ваш текст</div>
             <button class="btn btn-lg btn-primary btn-block" id="button_zuzin">Проверить вторым способом</button>
         </form>
-        <script src="js/anti_filth.js" type="text/javascript"></script>
+        <script src="js/general/ajax_request.js" type="text/javascript"></script>
+        <script src="js/anti_filth/anti_filth.js" type="text/javascript"></script>
     </main>
     <?php
     require_once('php/general/footer.php');
