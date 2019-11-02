@@ -1,7 +1,7 @@
 <?php
 require_once('../general/connect.php');
 require_once('change_text.php');
-$connection = connect1('authorization', 'root', '');
+$connection = connect('authorization', 'root', '');
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['input_text'])) {
         $text = $_POST['input_text'];

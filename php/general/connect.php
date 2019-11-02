@@ -1,11 +1,11 @@
 <?php
-function connect($database)
+function connect1($database)
 {
     $connection = mysqli_connect('localhost', 'root', '');
     mysqli_select_db($connection, $database);
     return $connection;
 }
-function connect1($database, $user, $password)
+function connect($database, $user, $password)
 {
     $dsn = 'mysql:dbname='.$database.';host:localhost';
     try {
