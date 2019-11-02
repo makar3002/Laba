@@ -12,6 +12,19 @@ td {
   text-align: center;
 }
 
+tr:first-child {
+  padding-left: 10px !important;
+}
+
+tr:last-child{
+  padding-right: 10px !important;
+}
+
+caption {
+  caption-side: top !important;
+  padding: 0 !important;
+}
+
 .main-label {
   padding-top: 1px;
   font-size: 20px;
@@ -123,7 +136,6 @@ section.idea {
 }
 
 .car {
-  align-self: left;
   height: 40px;
 }
 
@@ -224,10 +236,6 @@ footer.page-footer {
   padding: 15px;
   margin: auto;
   margin-bottom: 50px;
-}
-
-h5{
-  : center;
 }
 
 .alert {

@@ -14,7 +14,7 @@
     <main class="pt-5 text-center">
 	<?php if (isset($_SESSION['user_id'])) {?>
 		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary p-3 " data-toggle="modal" data-target="#exampleModalCenter">
+		<button type="button" class="btn btn-primary p-3" data-toggle="modal" data-target="#exampleModalCenter">
 		  Добавить в журнал
 		</button>
 
@@ -55,6 +55,7 @@
 		<?php }?>
         <article class="m-5 entry">
             <table class="table" id="table">
+
             </table>
         </article>
     </main>
