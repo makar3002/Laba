@@ -46,8 +46,9 @@
                                 <button class="btn btn-primary" type="submit" id="button_add">Добавить</button>
                             </div>
                         </form>
+                        <script src="js/utils/validate.js" type="text/javascript"></script>
                         <script src="js/general/ajax_request.js" type="text/javascript"></script>
-                        <script src="js/journal/journal.js"></script>
+                        <script src="js/journal/journal.js" type="text/javascript"></script>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,6 @@ function request_open(button, request){
     } else {
         request.open('POST', 'php/anti_filth/anti_filth_zuzin.php', true);
     }
-
 }
 
 function text_change(button, request){
