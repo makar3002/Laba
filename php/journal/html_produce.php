@@ -2,7 +2,7 @@
 function authorized_html_produce($data, $email)
 {
     $code = '<caption>
-        <h5>Журнал с данными пользователся <?php echo "$email" ?>!</h5>
+        <h5>Журнал с данными пользователя '."$email".'!</h5>
     </caption>
     <tr>
         <td width="7%">№</td>

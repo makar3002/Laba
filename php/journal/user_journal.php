@@ -8,7 +8,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id']) ) {
     $email = $_SESSION['email'];
     $user_id = $_SESSION['user_id'];
     $table = table_sql_request($connection, $user_id);
-    echo authorized_html_produce($table, $user_id);
+    echo authorized_html_produce($table, $email);
 } else {
     echo unauthorized_html_produce();
 }
