@@ -46,19 +46,17 @@
                                 <button class="btn btn-primary" type="submit" id="button_add">Добавить</button>
                             </div>
                         </form>
-                        <script src="js/utils/validate.js" type="text/javascript"></script>
-                        <script src="js/general/ajax_request.js" type="text/javascript"></script>
-                        <script src="js/journal/journal.js" type="text/javascript"></script>
                     </div>
                 </div>
             </div>
         </div>
 		<?php }?>
         <article class="m-5 entry">
-            <table class="table" id="table">
-
-            </table>
+            <table class="table" id="table"></table>
         </article>
+        <script src="js/utils/validate.js" type="text/javascript"></script>
+        <script src="js/general/ajax_request.js" type="text/javascript"></script>
+        <script src="js/journal/journal.js" type="text/javascript"></script>
     </main>
     <?php
     require_once('php/general/footer.php');
