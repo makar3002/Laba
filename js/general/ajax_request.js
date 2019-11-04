@@ -12,9 +12,11 @@ function ajax_request_on_button_click(button, request_open, action = null, data_
                 }
             }
         });
-        request_open(button, request);
-        var data = new FormData(document.getElementById('form'));
-        if (data_validating()) request.send(data);
+        if (data_validating()) {
+            request_open(button, request);
+            var data = new FormData(document.getElementById('form'));
+            request.send(data);
+        }
     })
 }
 

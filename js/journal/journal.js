@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded",function() {
             button_add,
             function (button, request) {
                 request.open('POST', 'php/journal/add_journal.php', true);
+                var close_form_button = document.getElementById('close_form');
+                close_form_button.click();
             },
             journal_table_update,
             journal_data_validating
