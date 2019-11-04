@@ -19,6 +19,6 @@ function text_change(button, request){
 document.addEventListener("DOMContentLoaded",function() {
     var button_makarenko = document.getElementById('button_makarenko');
     var button_zuzin = document.getElementById('button_zuzin');
-    ajax_request_on_button(button_makarenko, request_open, text_change);
-    ajax_request_on_button(button_zuzin, request_open, text_change);
+    ajax_request_on_button_click(button_makarenko, request_open, text_change);
+    ajax_request_on_button_click(button_zuzin, request_open, text_change);
 });

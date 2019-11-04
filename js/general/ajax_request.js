@@ -1,4 +1,4 @@
-function ajax_request_on_button(button, request_open, action = null){
+function ajax_request_on_button_click(button, request_open, action = null, data_validating = function (){return true}) {
     button.addEventListener("click", function(e) {
         e.preventDefault();
         var request = new XMLHttpRequest();
@@ -14,7 +14,7 @@ function ajax_request_on_button(button, request_open, action = null){
         });
         request_open(button, request);
         var data = new FormData(document.getElementById('form'));
-        request.send(data);
+        if (data_validating()) request.send(data);
     })
 }
 

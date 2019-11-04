@@ -55,6 +55,7 @@
             <table class="table" id="table"></table>
         </article>
         <script src="js/utils/validate.js" type="text/javascript"></script>
+        <script src="js/utils/util.js" type="text/javascript"></script>
         <script src="js/general/ajax_request.js" type="text/javascript"></script>
         <script src="js/journal/journal.js" type="text/javascript"></script>
     </main>

@@ -1,4 +1,4 @@
-function table_update(unused_button = null, unused_request = null){
+function journal_table_update(unused_button = null, unused_request = null){
     var table = document.getElementById('table');
     ajax_request(
         function (request){
@@ -15,11 +15,14 @@ document.addEventListener("DOMContentLoaded",function() {
     if (form != null) {
         form.onsubmit = journal_data_validating;
         var button_add = document.getElementById('button_add');
-        ajax_request_on_button(
+        ajax_request_on_button_click(
             button_add,
             function (button, request) {
                 request.open('POST', 'php/journal/add_journal.php', true);
-            }, table_update);
+            },
+            journal_table_update,
+            journal_data_validating
+        );
     }
-    table_update();
+    journal_table_update();
 });
