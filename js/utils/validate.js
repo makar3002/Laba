@@ -5,8 +5,12 @@ function journal_data_validating(){
         alert("Неправильные данные в номере - только 6 символов!");
         return false;
     }
-    if (check_format(car_mark.value, 'word') === true){
+    if (check_format(car_mark.value, 'word') !== true){
         alert("Неправильные данные в марке - только буквы!");
+        return false;
+    }
+    if (car_mark.value.length === 0){
+        alert("Неправильные данные в марке - поле не должно быть пустым!");
         return false;
     }
     return true;
