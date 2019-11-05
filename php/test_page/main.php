@@ -1,25 +1,13 @@
 <?php
-	session_start();
-	require_once('php/general/header&footer.php');
-?>
-
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <title>Автомобильный гараж</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-</head>
-<body>
-    <?php
-		page_header();
-    ?>
-    <main class="pt-5 text-center">
-	<?php if (isset($_SESSION['user_id'])) {?>
+	require_once("php/general/connect.php");
+	require_once("php/general/data.php");
+	function modal_form()
+	{
+		echo '
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary p-3" data-toggle="modal" data-target="#exampleModalCenter">
-		  Добавить в журнал
+		<!--  Добавить в журнал -->
+		Текст на кнопке
 		</button>
 
 		<!-- Modal -->
@@ -54,23 +42,52 @@
                 </div>
             </div>
         </div>
-		<?php }?>
-        <article class="m-5 entry">
-            <table class="table" id="table"></table>
-        </article>
-        <script src="js/utils/validate.js" type="text/javascript"></script>
-        <script src="js/utils/util.js" type="text/javascript"></script>
-        <script src="js/general/ajax_request.js" type="text/javascript"></script>
-        <script src="js/journal/journal.js" type="text/javascript"></script>
-    </main>
-    <?php
-    page_footer();
-    ?>
+				';
+	}
 
+	function data_table($email ,$user_id)
+	{
+		$connection = connect('authorization', 'root', '');
+		$data_array = get_journal_data_from_db($connection, $user_id);
+		$code = '<caption>
+        <h5>Журнал с данными пользователя '.$email.'!</h5>
+    </caption>
+    <tr>
+        <td width="7%">№</td>
+        <td width="22%">Номер автомобиля</td>
+        <td width="22%">Марка</td>
+        <td width="22%">Дата принятия</td>
+        <td width="9%">Статус</td>
+        <td width="9%">Изменить</td>
+        <td width="9%">Удалить</td>
+    </tr> ';
+		for ($i = 0; $i < count($data_array); $i++) {
+			$data = $data_array[$i];
+			$code .= '<tr>';
+					$iter = 0;
+					foreach ($data->value as $data_part) {
+							$iter++;
+							if ($iter == 2)
+								continue;
+							if ($iter == 1){
+								$code.='<td width="7%">'.($i+1).'</td>';
+							}else
+							if ($iter == count($data->value)) {
+									$code .= '<td width="11%">'.$data_part.'</td>';
+							} else {
+									$code .= '<td width="22%">'.$data_part.'</td>';
+							}
+					}
+					$code .= '<td width="8%">Изменить</td>
+					<td width="8%">Удалить</td>
+			</tr>';
+		}
+		echo '
+		<article class="m-5 entry">
+				<table class="table" id="table">'.$code.'
+				</table>
+		</article>
+		';
+	}
 
-
-    <script src="js/jquery-3.4.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-</body>
-</html>
+?>
