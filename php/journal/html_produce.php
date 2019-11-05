@@ -1,5 +1,5 @@
 <?php
-function authorized_html_produce($data, $email)
+function authorized_html_produce($data, $email, $marks)
 {
     $code = '<caption>
         <h5>Журнал с данными пользователя '."$email".'!</h5>
@@ -17,16 +17,11 @@ function authorized_html_produce($data, $email)
         $r = $data[$i - 1];
         $code .= '<tr>
             <td width="7%">'.$i.'</td>';
-            $j = 0;
-            foreach ($r as $f) {
-                if ($j == count($r) - 1) {
-                    $code .= '<td width="11%">'.$f.'</td>';
-                } else {
-                    $code .= '<td width="22%">'.$f.'</td>';
-                }
-                $j++;
-            }
-            $code .= '<td width="8%">Изменить</td>
+            $code .= '<td width="22%">'.$r['number'].'</td>
+            <td width="22%">'.$marks[$r['mark_id']].'</td>
+            <td width="22%">'.$r['date'].'</td>
+            <td width="11%">'.$r['status'].'</td>
+            <td width="8%">Изменить</td>
             <td width="8%">Удалить</td>
         </tr>';
     }
@@ -35,5 +30,13 @@ function authorized_html_produce($data, $email)
 
 function unauthorized_html_produce(){
     return '<h5>Вы не авторизованы, авторизуйтесь, пожалуйста</h5>';
+}
+
+function marks_select_html_produce($marks){
+    $code = '';
+    foreach ($marks as $mark){
+        $code .= '<option value = '.$mark['id'].'>'.$mark['mark_name'].'</option>';
+    }
+    return $code;
 }
 ?>

@@ -12,31 +12,29 @@
     require_once('php/general/header.php');
     ?>
     <main class="pt-5">
-      <article class=" d-flex entry">
-        <section class="m-3 idea">
-          <h2>Автомобильный гараж</h2>
-          <h1>У нас только лучшие тачки!</h1>
-          <p>Качественный сервис, Экзибит позавидует!</p>
-          <p>Охрана и хранение вашей ласточки</p>
-          <p>Охрана и хранение вашей ласточки</p>
-        </section>
-        <section class="m-3 contacts">
-          <h1>Контакты: </h1>
-          <p>///...///</p>
-          <p>///...///</p>
-          <p>///...///</p>
-
-        </section>
-
-      </article>
+        <article class=" d-flex entry">
+            <section class="m-3 idea">
+                <h2>Автомобильный гараж</h2>
+                <h1>У нас только лучшие тачки!</h1>
+                <p>Качественный сервис, Экзибит позавидует!</p>
+                <p>Охрана и хранение вашей ласточки</p>
+                <p>Охрана и хранение вашей ласточки</p>
+            </section>
+            <section class="m-3 contacts">
+                <h1>Контакты: </h1>
+                <p>///...///</p>
+                <p>///...///</p>
+                <p>///...///</p>
+            </section>
+        </article>
 
     <section class="photos">
-      <figure class="slides">
-        <img src="images/1.jpg" alt="Машина 1">
-        <img src="images/2.jpeg" alt="Машина 2">
-        <img src="images/3.jpg" alt="Машина 3">
-        <img src="images/4.jpg" alt="Машина 4">
-      </figure>
+        <figure class="slides">
+            <img src="files/images/1.jpg" alt="Машина 1">
+            <img src="files/images/2.jpeg" alt="Машина 2">
+            <img src="files/images/3.jpg" alt="Машина 3">
+            <img src="files/images/4.jpg" alt="Машина 4">
+        </figure>
     </section>
     </main>
     <?php
