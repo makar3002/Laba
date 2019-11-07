@@ -1,13 +1,12 @@
 <?php
 	require_once('../general/connect.php');
-	$connection = connect('authorization', 'root', '');
-	setlocale(LC_ALL, 'ru_RU.UTF-8');
-	if ($_SERVER['REQUEST_METHOD'] == "POST") 
+	$connection = connect('database', 'root', '');
+	if ($_SERVER['REQUEST_METHOD'] == "GET")
 	{
-		if (isset($_POST['input_text']))
+		if (isset($_GET['input_text']))
 		{
 			$result_text = '';
-			$text = $_POST['input_text'];
+			$text = $_GET['input_text'];
 			$polite_text = '';
 			$query = "SET NAMES utf8";
 			$connection->prepare($query)->execute();

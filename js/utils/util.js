@@ -1,4 +1,4 @@
-function check_format(data, type) {
+function checkFormat(data, type) {
     switch (type) {
         case 'word':
             for (var i = 0; i < data.length; i++) {

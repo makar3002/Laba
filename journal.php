@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	require_once('php/general/header&footer.php');
 ?>
 
 <!DOCTYPE html>
@@ -10,10 +9,13 @@
     <meta charset="utf8">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
     <?php
-		page_header();
+		require_once ('php/general/header.php');
     ?>
     <main class="pt-5 text-center">
 	<?php if (isset($_SESSION['user_id'])) {?>
@@ -65,13 +67,7 @@
         <script src="js/journal/journal.js" type="text/javascript"></script>
     </main>
     <?php
-    page_footer();
+    require_once ('php/general/footer.php');
     ?>
-
-
-
-    <script src="js/jquery-3.4.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

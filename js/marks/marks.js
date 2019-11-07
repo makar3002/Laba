@@ -1,29 +1,36 @@
-function marks_table_update(unused_button = null, unused_request = null){
-    var table = document.getElementById('table');
-    ajax_request(
-        function (request){
-            request.open('POST', 'php/marks/marks.php', true);
-        },
-        function (request) {
-            table.innerHTML = request.responseText;
+function setupMarksTable(unused_button = null, unused_request = null){
+    $.ajax({
+        type: 'POST',
+        url: 'php/marks/marks.php',
+        success: function(response) {
+            $('#table').html(response);
         }
-    );
+
+    });
 }
 
-document.addEventListener("DOMContentLoaded",function() {
-    var form = document.getElementById('form');
-    if (form != null) {
-        var button_add = document.getElementById('button_add');
-        ajax_request_on_button_click(
-            button_add,
-            function (button, request) {
-                request.open('POST', 'php/marks/add_mark.php', true);
-                var close_form_button = document.getElementById('close_form');
-                close_form_button.click();
-            },
-            marks_table_update,
-            mark_data_validating
-        );
-    }
-    marks_table_update();
+$(document).ready(function() {
+    var form = $('#form');
+    if (null == form) { return; }
+
+    var button_add = $('#button_add');
+    if (null == button_add) { return; }
+
+    button_add.click(function (event) {
+        event.preventDefault();
+        if (markDataValidating()) {
+            $.ajax({
+                data: new FormData($('#form')[0]),
+                processData: false,
+                contentType: false,
+                url: 'php/marks/add_mark.php',
+                type: 'POST',
+                success: function (request) {
+                    setupMarksTable();
+                    $('#close_form').click();
+                }
+            });
+        }
+    });
+    setupMarksTable();
 });

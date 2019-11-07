@@ -5,7 +5,6 @@ function ajax_request_on_button_click(button, request_open, action = null, data_
         request.addEventListener('readystatechange', function() {
             if (request.readyState === 4) {
                 if (request.status === 200) {
-                    console.log(request.responseText);
                     if (action != null) action(button, request);
                 } else {
                     alert('Error Code: ' + request.status);

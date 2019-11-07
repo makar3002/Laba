@@ -47,7 +47,7 @@
 
 	function data_table($email ,$user_id)
 	{
-		$connection = connect('authorization', 'root', '');
+		$connection = connect('database', 'root', '');
 		$data_array = get_journal_data_from_db($connection, $user_id);
 		$code = '<caption>
         <h5>Журнал с данными пользователя '.$email.'!</h5>

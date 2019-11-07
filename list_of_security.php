@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
     <?php

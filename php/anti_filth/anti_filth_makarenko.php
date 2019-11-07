@@ -1,10 +1,10 @@
 <?php
 require_once('../general/connect.php');
 require_once('change_text.php');
-$connection = connect('authorization', 'root', '');
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST['input_text'])) {
-        $text = $_POST['input_text'];
+$connection = connect('database', 'root', '');
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    if (isset($_GET['input_text'])) {
+        $text = $_GET['input_text'];
         $polite_text = '';
         mb_internal_encoding('utf-8');
         $query = "SET NAMES utf8";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3333
--- Время создания: Ноя 02 2019 г., 16:33
+-- Время создания: Ноя 07 2019 г., 20:13
 -- Версия сервера: 10.4.6-MariaDB
 -- Версия PHP: 7.3.9
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `authorization`
+-- База данных: `database`
 --
 
 -- --------------------------------------------------------
@@ -90,38 +90,52 @@ INSERT INTO `bad_words` (`id`, `word`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `cars`
+-- Структура таблицы `journal_notes`
 --
 
-CREATE TABLE `cars` (
+CREATE TABLE `journal_notes` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `number` varchar(10) NOT NULL,
-  `brand` varchar(255) NOT NULL,
-  `date` varchar(255) NOT NULL,
+  `number` varchar(12) NOT NULL,
+  `mark_id` int(11) NOT NULL,
+  `date` date NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `cars`
+-- Дамп данных таблицы `journal_notes`
 --
 
-INSERT INTO `cars` (`id`, `user_id`, `number`, `brand`, `date`, `status`) VALUES
-(113, 1, 'Ñ056Ð½Ñƒ', 'LADA Kalina', '2019-10-05', b'0'),
-(115, 2, 'Ð»000Ð¾Ð»', 'Ð‘Ð£Ð“ÐÐ¢Ð˜', '2019-10-16', b'0'),
-(122, 1, 'Ð»000Ð¾Ð»', 'Ð‘Ð£Ð“ÐÐ¢Ð˜', '2019-10-09', b'0'),
-(123, 1, 'o000oo', 'BMW', '2019-10-12', b'0'),
-(124, 2, 'a123bc', 'Ð–Ð¸Ð³ÑƒÐ»ÑŒ', '2019-10-19', b'0'),
-(147, 1, '123456', 'Ð¢Ð¾Ð¹Ð¾Ñ‚Ð°', '2019-11-17', b'0'),
-(162, 1, '123456', 'Ñ‹Ð²Ð°', '2019-11-24', b'0'),
-(163, 1, '123456', 'bfh', '2019-11-24', b'0'),
-(164, 1, '123456', 'bfh', '2019-11-24', b'0'),
-(165, 1, '123456', 'bfh', '2019-11-24', b'0'),
-(166, 1, '123456', 'Ñ‹Ð²Ð°', '2019-11-23', b'0'),
-(167, 1, '123456', 'Ñ‹Ð²Ð°', '2019-11-22', b'0'),
-(168, 1, '123123', 'Ñ‹Ð²Ð°', '2019-11-08', b'0'),
-(169, 1, '765432', 'Ñ‹Ð²Ð°', '2019-11-17', b'0'),
-(170, 1, '123456', 'Ñ„Ð±Ð²Ð³Ð´', '2019-11-10', b'0');
+INSERT INTO `journal_notes` (`id`, `user_id`, `number`, `mark_id`, `date`, `status`) VALUES
+(210, 1, '123123', 7, '2019-11-15', b'0'),
+(211, 1, '123456', 6, '2019-11-08', b'0'),
+(212, 1, '234567', 5, '2019-11-30', b'0'),
+(213, 1, '123123', 6, '2019-11-17', b'0'),
+(214, 1, '123456', 7, '2019-11-08', b'0');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `marks`
+--
+
+CREATE TABLE `marks` (
+  `id` int(11) NOT NULL,
+  `mark_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `marks`
+--
+
+INSERT INTO `marks` (`id`, `mark_name`) VALUES
+(8, 'ghb'),
+(6, 'ÐÐ¸ÐºÐ¸Ñ‚Ð°'),
+(9, 'Ð²Ð°Ð¿'),
+(11, 'Ð»Ð¾Ñ…'),
+(10, 'Ð¼Ð°Ðº'),
+(7, 'Ð›ÑŽÑ…Ñ‚ÐµÐ½ÐºÐ¾Ð»Ð¾Ñ…'),
+(5, 'Ð›Ð°Ð´Ð°');
 
 -- --------------------------------------------------------
 
@@ -148,18 +162,19 @@ INSERT INTO `users` (`id`, `email`, `password`) VALUES
 --
 
 --
--- Индексы таблицы `bad_words`
+-- Индексы таблицы `journal_notes`
 --
-ALTER TABLE `bad_words`
+ALTER TABLE `journal_notes`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `word` (`word`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `journal_notes_ibfk_2` (`mark_id`);
 
 --
--- Индексы таблицы `cars`
+-- Индексы таблицы `marks`
 --
-ALTER TABLE `cars`
+ALTER TABLE `marks`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD UNIQUE KEY `mark_name` (`mark_name`);
 
 --
 -- Индексы таблицы `users`
@@ -173,16 +188,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT для таблицы `bad_words`
+-- AUTO_INCREMENT для таблицы `journal_notes`
 --
-ALTER TABLE `bad_words`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+ALTER TABLE `journal_notes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
 
 --
--- AUTO_INCREMENT для таблицы `cars`
+-- AUTO_INCREMENT для таблицы `marks`
 --
-ALTER TABLE `cars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+ALTER TABLE `marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -195,10 +210,11 @@ ALTER TABLE `users`
 --
 
 --
--- Ограничения внешнего ключа таблицы `cars`
+-- Ограничения внешнего ключа таблицы `journal_notes`
 --
-ALTER TABLE `cars`
-  ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `journal_notes`
+  ADD CONSTRAINT `journal_notes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `journal_notes_ibfk_2` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

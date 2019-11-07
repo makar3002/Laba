@@ -1,6 +1,6 @@
 <?php
 require_once('php/general/connect.php');
-$connection = connect('authorization', 'root', '');
+$connection = connect('database', 'root', '');
 require_once('php/general/check_format.php');
 if (isset($_SERVER['HTTP_REFERER'])) {
     if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
