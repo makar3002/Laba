@@ -1,16 +1,16 @@
 function journalDataValidating(){
-    var noteNumber = document.getElementById('number');
-    var noteMark = document.getElementById('mark');
-    var noteDate = document.getElementById('date');
-    if (noteNumber.value.length !== 6) {
+    var noteNumber = $('#number');
+    var noteMark = $('#mark');
+    var noteDate = $('#date');
+    if (noteNumber.val().length !== 6) {
         alert("Неправильные данные в номере - только 6 символов!");
         return false;
     }
-    if (noteMark.value.length === 0) {
+    if (noteMark.val().length === 0) {
         alert("Неправильные данные в марке - поле не должно быть пустым!");
         return false;
     }
-    if (noteDate.value.length === 0) {
+    if (noteDate.val().length === 0) {
         alert("Неправильные данные в дате - выберете нужную дату!");
         return false;
     }
@@ -18,12 +18,18 @@ function journalDataValidating(){
 }
 
 function markDataValidating(){
-    var markName = document.getElementById('name');
-    if (markName.value.length === 0) {
+    var markName = $('#name');
+    var markLogo = $('#file');
+    if (markName.val().length === 0) {
         alert("Неправильные данные в названии - поле не должно быть пустым!");
         return false;
     }
-    if (checkFormat(markName.value, 'word') !== true) {
+    console.log(markLogo.val());
+    if (markLogo.val().length === 0) {
+        alert("Неправильные данные в названии - нужно выбрать файл!");
+        return false;
+    }
+    if (checkFormat(markName.val(), 'word') !== true) {
         alert("Неправильные данные в названии - только буквы!");
         return false;
     }

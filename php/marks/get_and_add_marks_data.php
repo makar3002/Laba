@@ -11,6 +11,18 @@ ORDER BY
     return $sdh->fetchAll(PDO::FETCH_ASSOC); //получаем данные и фетчим их в ассоциативный массив
 }
 
+function get_one_mark(PDO $connection, $mark_name){
+    $query = "SELECT 
+    id, mark_name
+FROM 
+    marks
+WHERE 
+    mark_name = ?"; //создаем запрос на получение данных
+    $sdh = $connection->prepare($query);
+    $sdh->execute(array($mark_name));
+    return $sdh->fetchAll(PDO::FETCH_ASSOC); //получаем данные и фетчим их в ассоциативный массив
+}
+
 function add_mark(PDO $connection, $mark_name){
     $query = "INSERT INTO marks (mark_name) VALUES (?)"; //создаем запрос на получение данных
     $sdh = $connection->prepare($query);

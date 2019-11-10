@@ -11,10 +11,10 @@
         <a class="btn btn-sm btn-outline-secondary"
             <?php
             if (!isset($_SESSION['email'])){
-                echo "href='auth.php'" ?> > Sign in
+                echo "href='auth.php'" ?> > Войти
             <?php
             } else {
-                echo "href='php/general/logout.php'" ?> > Sign out
+                echo "href='php/general/logout.php'" ?> > Выйти
             <?php
             }
             ?>
