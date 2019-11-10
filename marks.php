@@ -37,16 +37,16 @@
 <!--    </main>-->
         <main class="pt-5 text-center">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary p-3" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" class="btn btn-primary p-3" data-toggle="modal" data-target="#modalCenter">
                 Добавить марку
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Добавить марку</h5>
+                            <h5 class="modal-title">Добавить марку</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_form">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -56,6 +56,8 @@
                                 <div class="form-group">
                                     <label for = "name" class = "col-form-label">Название марки:</label>
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Название марки" required autofocus>
+                                    <label for = "logo" class = "col-form-label">Логотип марки (картинка в формате png):</label>
+                                    <input type="file" name="file" id="file" class="form-control-file" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="submit" id="button_add">Добавить</button>

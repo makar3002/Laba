@@ -1,6 +1,5 @@
 <?php
-	require_once('../general/connect.php');
-	$connection = connect('database', 'root', '');
+	require_once('../general/database_connection.php');
 	if ($_SERVER['REQUEST_METHOD'] == "GET")
 	{
 		if (isset($_GET['input_text']))

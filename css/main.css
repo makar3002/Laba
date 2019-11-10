@@ -254,3 +254,32 @@ footer.page-footer {
   padding-top: 20px;
   font-size: 12px;
 }
+
+.popupimg {
+  color: #0021ff !important;
+}
+
+.popupimg span {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  box-shadow: -2px 2px 10px -1px #333333;
+  margin-left: 10px;
+  padding-left: auto;
+  padding-right: auto;
+  position: absolute;
+  visibility: hidden;
+}
+
+.popupimg:hover span{
+  visibility: visible;
+}
+span img{
+  margin: 10px;
+  height: auto;
+  width: 150px;
+  border-radius: 0 !important;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+

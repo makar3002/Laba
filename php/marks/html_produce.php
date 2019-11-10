@@ -15,7 +15,7 @@ function marks_html_produce($data)
         $r = $data[$i - 1];
         $code .= '<tr>
             <td width="10%">'.$i.'</td>';
-        $code .= '<td width="35%">Картинка</td>';
+        $code .= '<td width="35%"><a class="popupimg">Картинка<span><img src="files/images/marks/'.$r['id'].'.png" alt="'.$r['mark_name'].'"></span></a></td>';
         $code .= '<td width="35%">'.$r['mark_name'].'</td>';
         $code .= '<td width="10%">Изменить</td>
             <td width="10%">Удалить</td>

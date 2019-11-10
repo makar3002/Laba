@@ -9,28 +9,43 @@ function setupMarksTable(unused_button = null, unused_request = null){
     });
 }
 
-$(document).ready(function() {
+$(document).ready(function()
+{
     var form = $('#form');
     if (null == form) { return; }
 
     var button_add = $('#button_add');
     if (null == button_add) { return; }
 
-    button_add.click(function (event) {
+    button_add.click(function (event)
+    {
         event.preventDefault();
-        if (markDataValidating()) {
+
+        if (markDataValidating())
+        {
             $.ajax({
-                data: new FormData($('#form')[0]),
-                processData: false,
-                contentType: false,
-                url: 'php/marks/add_mark.php',
-                type: 'POST',
-                success: function (request) {
-                    setupMarksTable();
-                    $('#close_form').click();
-                }
-            });
+                    data: new FormData($('#form')[0]),
+                    processData: false,
+                    contentType: false,
+                    url: 'php/marks/add_mark.php',
+                    type: 'POST',
+                    success: function (response)
+                    {
+                        $('#close_form').click();
+                        setupMarksTable();
+                    }
+                });
         }
     });
+
+    // var i = 0;
+    // var button_image = $('#' + i);
+    // while (null != button_image) {
+    //     button_image.click(function (event) {
+    //         $('#modalCenter.modal-body').html('hi');
+    //     });
+    //     i++;
+    //     button_image = $('#' + i);
+    // }
     setupMarksTable();
 });

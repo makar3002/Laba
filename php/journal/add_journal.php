@@ -2,9 +2,9 @@
 session_start();
 require_once('../general/check_format.php');
 require_once('get_and_add_journal_data.php');
-require_once('../general/connect.php');
+require_once('../general/database_connection.php');
 require_once('../marks/get_and_add_marks_data.php');
-$connection = connect('database', 'root', ''); //подключаемся к базе
+
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 	if(isset($_POST['number']) && isset($_POST['mark']) && isset($_POST['date']) && isset($_SESSION['user_id'])){
 		$user_id = $_SESSION['user_id'];

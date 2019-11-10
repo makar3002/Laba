@@ -1,14 +1,13 @@
 <?php
-require_once('../general/connect.php');
 require_once('change_text.php');
-$connection = connect('database', 'root', '');
+require_once('../general/database_connection.php');
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if (isset($_GET['input_text'])) {
         $text = $_GET['input_text'];
         $polite_text = '';
+
         mb_internal_encoding('utf-8');
-        $query = "SET NAMES utf8";
-        $connection->prepare($query)->execute();
+
         $query = "SELECT * FROM bad_words";
         $sdh = $connection->prepare($query);
         $sdh->execute();
