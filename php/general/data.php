@@ -61,4 +61,14 @@ function get_journal_data_from_db($db, $user_id)
  }
  return $end_arr;
 }
+
+abstract class Data
+{
+	abstract public function create($arr);
+	abstract public function read_by_name($arr);
+	abstract public function read();
+	abstract public function update($arr);
+	abstract public function delete($arr);
+	public $db; //В формате PDO
+}
  ?>

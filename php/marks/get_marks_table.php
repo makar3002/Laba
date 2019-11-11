@@ -1,7 +1,6 @@
 <?php
-include_once('get_and_add_marks_data.php');
+require_once('marks_table_class.php');
 include_once ('html_produce.php');
-require_once('../general/database_connection.php');
-$table = get_marks($connection);
+$table = $marks->read();
 echo marks_html_produce($table);
 ?>

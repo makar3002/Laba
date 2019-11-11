@@ -17,16 +17,15 @@ function journalDataValidating(){
     return true;
 }
 
-function markDataValidating(){
-    var markName = $('#name');
-    var markLogo = $('#file');
+function markDataValidating(type){
+    var markName = $('#' + type + 'Name');
+    var markLogo = $('#' + type + 'File');
     if (markName.val().length === 0) {
         alert("Неправильные данные в названии - поле не должно быть пустым!");
         return false;
     }
-    console.log(markLogo.val());
-    if (markLogo.val().length === 0) {
-        alert("Неправильные данные в названии - нужно выбрать файл!");
+    if (markLogo.val().length === 0 && type !== 'change') {
+        alert("Неправильные данные в поле логотипа - нужно выбрать файл!");
         return false;
     }
     if (checkFormat(markName.val(), 'word') !== true) {

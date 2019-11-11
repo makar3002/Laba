@@ -1,51 +1,174 @@
-function setupMarksTable(unused_button = null, unused_request = null){
+var id;
+var mark_name;
+
+function getMarkById(action) {
+    $.ajax({
+        data: "id=" + id,
+        url: 'php/marks/get_mark_by_id.php',
+        type: 'POST',
+        success: function (response)
+        {
+            mark_name = response;
+
+            if (mark_name === '')
+            {
+                id = null;
+                alert('Такой записи не найдено, повторите попытку!');
+                setupMarksTable();
+            }
+            else
+            {
+                action();
+            }
+        }
+    });
+}
+
+function setupMarksTable()
+{
     $.ajax({
         type: 'POST',
-        url: 'php/marks/marks.php',
+        url: 'php/marks/get_marks_table.php',
         success: function(response) {
             $('#table').html(response);
+            setupDeleteAndChangeButtons();
         }
 
     });
 }
 
+function setupDeleteAndChangeButtons()
+{
+    var changeButtons = $('.change');
+
+    changeButtons.each(function ()
+    {
+        $(this).click(function (event)
+        {
+            event.preventDefault();
+
+            id = $(this).attr('id').substring(12);
+            getMarkById(function ()
+            {
+                var form = $('#changeForm');
+                if (null == form) { return; }
+
+                var changeName = $('#changeName');
+                if (null == changeName) { return; }
+
+                changeName.val(mark_name);
+
+                $('#modalChangeCenter').modal('show');
+            });
+        });
+    });
+
+    var deleteButtons = $('.delete');
+
+    deleteButtons.each(function ()
+    {
+        $(this).click(function (event)
+        {
+            event.preventDefault();
+
+            id = $(this).attr('id').substring(11);
+            getMarkById(function ()
+            {
+                $('#modalDeleteCenter').modal('show');
+            });
+        });
+    });
+}
+
 $(document).ready(function()
 {
-    var form = $('#form');
+    var form = $('#createForm');
     if (null == form) { return; }
 
-    var button_add = $('#button_add');
-    if (null == button_add) { return; }
+    var buttonAdd = $('#buttonAdd');
+    if (null == buttonAdd) { return; }
 
-    button_add.click(function (event)
+    buttonAdd.click(function (event)
     {
         event.preventDefault();
 
-        if (markDataValidating())
+        if (markDataValidating('add'))
         {
             $.ajax({
-                    data: new FormData($('#form')[0]),
-                    processData: false,
-                    contentType: false,
-                    url: 'php/marks/add_mark.php',
-                    type: 'POST',
-                    success: function (response)
-                    {
-                        $('#close_form').click();
-                        setupMarksTable();
-                    }
-                });
+                data: new FormData($('#createForm')[0]),
+                processData: false,
+                contentType: false,
+                url: 'php/marks/add_mark.php',
+                type: 'POST',
+                success: function (response)
+                {
+                    $('#closeCreateForm').click();
+                    setupMarksTable();
+                }
+            });
         }
     });
 
-    // var i = 0;
-    // var button_image = $('#' + i);
-    // while (null != button_image) {
-    //     button_image.click(function (event) {
-    //         $('#modalCenter.modal-body').html('hi');
-    //     });
-    //     i++;
-    //     button_image = $('#' + i);
-    // }
+    var buttonChange = $('#buttonChange');
+    if (null == buttonChange) { return; }
+
+    buttonChange.click(function (event)
+    {
+        event.preventDefault();
+
+        var formData = new FormData($('#changeForm')[0]);
+        formData.append('id', id);
+
+        if (markDataValidating('change'))
+        {
+            $.ajax({
+                data: formData,
+                processData: false,
+                contentType: false,
+                url: 'php/marks/change_mark.php',
+                type: 'POST',
+                success: function (response)
+                {
+                    console.log(response);
+                    $('#closeChangeForm').click();
+                    setupMarksTable();
+                }
+            });
+        }
+    });
+
+    var button_delete_yes = $('#buttonDeleteYes');
+    if (null == button_delete_yes) { return; }
+
+    var button_delete_no = $('#buttonDeleteNo');
+    if (null == button_delete_no) { return; }
+
+    button_delete_yes.click(function ()
+    {
+        if (null == id)
+        {
+            $('#closeDeleteForm').click();
+            alert('Ошибка, повторите попытку!');
+            return;
+        }
+
+        $.ajax({
+            data: "id=" + id,
+            url: 'php/marks/delete_mark.php',
+            type: 'POST',
+            success: function (response)
+            {
+                $('#closeDeleteForm').click();
+                setupMarksTable();
+            }
+        });
+    });
+
+    button_delete_no.click(function ()
+    {
+        $('#closeDeleteForm').click();
+        id = null;
+    });
+
     setupMarksTable();
 });

@@ -17,8 +17,8 @@ function marks_html_produce($data)
             <td width="10%">'.$i.'</td>';
         $code .= '<td width="35%"><a class="popupimg">Картинка<span><img src="files/images/marks/'.$r['id'].'.png" alt="'.$r['mark_name'].'"></span></a></td>';
         $code .= '<td width="35%">'.$r['mark_name'].'</td>';
-        $code .= '<td width="10%">Изменить</td>
-            <td width="10%">Удалить</td>
+        $code .= '<td width="10%"><button type="button" class="btn btn-primary change" data-toggle="modal" data-target="#modalChangeCenter" id="button_chan_'.$r['id'].'">Изменить</button></td>
+            <td width="10%"><button type="button" class="btn btn-primary delete" data-toggle="modal" data-target="#modalDeleteCenter" id="button_del_'.$r['id'].'">Удалить</button></td>
         </tr>';
     }
     return $code;
