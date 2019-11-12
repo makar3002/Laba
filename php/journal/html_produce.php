@@ -21,8 +21,8 @@ function authorized_journal_html_produce($data, $email)
             <td width="22%">'.$r['mark_name'].'</td>
             <td width="22%">'.$r['date'].'</td>
             <td width="11%">'.$r['status'].'</td>
-            <td width="8%">Изменить</td>
-            <td width="8%">Удалить</td>
+            <td width="8%"><button type="button" class="btn btn-primary change p-0" id="button_chan_'.$r['id'].'">Изменить</button></td>
+            <td width="8%"><button type="button" class="btn btn-primary delete p-0" id="button_del_'.$r['id'].'">Удалить</button></td>
         </tr>';
     }
     return $code;

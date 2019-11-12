@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 			exit;
 		}
 
-		$mark = $marks->read_by_name(array($mark_name));
+		$mark = $marks_table->read_by_name(array($mark_name));
 		if (!empty($mark))
 		{
 			echo "Такая марка уже существует!";
@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 		if (mb_strlen($mark_name) !== 0 && check_format($mark_name, 'word')) //валидируем данные
 		{
-			$marks->create(array($mark_name));
+			$marks_table->create(array($mark_name));
 		}
 
-		$mark = $marks->read_by_name(array($mark_name));
+		$mark = $marks_table->read_by_name(array($mark_name));
 		if (empty($mark))
 		{
 			echo "Ошибка добавления!";
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 		$success = move_uploaded_file($mark_logo['tmp_name'], UPLOAD_DIR . $file_name);
 		if (!$success)
 		{
-			$marks->delete(array($mark[id]));
+			$marks_table->delete(array($mark['id']));
 			echo "Не удалось сохранить файл!";
 			exit;
 		}

@@ -10,7 +10,7 @@
     <?php
     session_start();
     require_once('php/general/header.php');
-	require_once("php/journal/add_journal.php");
+	require_once("php/journal/add_journal_note.php");
 
     ?>
     <main>
@@ -39,7 +39,7 @@
         <article class="m-5 entry">
             <table class="table">
             <?php
-            require_once ('php/journal/user_journal.php');
+            require_once('php/journal/get_journal_table.php');
             ?>
             </table>
         </article>

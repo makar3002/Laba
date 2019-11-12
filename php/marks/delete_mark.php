@@ -7,13 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $mark_id = $_POST['id'];
         $logo_path = REMOVE_DIR . $mark_id . '.png';
-        echo $logo_path;
 
         if (file_exists($logo_path))
         {
             echo 1;
             unlink($logo_path);
-            $marks->delete(array($mark_id));
+            $marks_table->delete(array($mark_id));
             echo 'Всё путем';
         }
     }

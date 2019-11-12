@@ -26,7 +26,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Добавить марку</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCreateForm">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCreateModal">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Изменить марку</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeChangeForm">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeChangeModal">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -80,7 +80,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Удалить марку</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeDeleteForm">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeDeleteModal">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

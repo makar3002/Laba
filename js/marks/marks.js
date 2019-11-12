@@ -8,9 +8,7 @@ function getMarkById(action) {
         type: 'POST',
         success: function (response)
         {
-            mark_name = response;
-
-            if (mark_name === '')
+            if (response === '')
             {
                 id = null;
                 alert('Такой записи не найдено, повторите попытку!');
@@ -18,6 +16,8 @@ function getMarkById(action) {
             }
             else
             {
+                mark_name = response;
+
                 action();
             }
         }
@@ -29,7 +29,8 @@ function setupMarksTable()
     $.ajax({
         type: 'POST',
         url: 'php/marks/get_marks_table.php',
-        success: function(response) {
+        success: function(response)
+        {
             $('#table').html(response);
             setupDeleteAndChangeButtons();
         }
@@ -100,9 +101,9 @@ $(document).ready(function()
                 contentType: false,
                 url: 'php/marks/add_mark.php',
                 type: 'POST',
-                success: function (response)
+                success: function ()
                 {
-                    $('#closeCreateForm').click();
+                    $('#closeCreateModal').click();
                     setupMarksTable();
                 }
             });
@@ -129,26 +130,28 @@ $(document).ready(function()
                 type: 'POST',
                 success: function (response)
                 {
-                    console.log(response);
-                    $('#closeChangeForm').click();
+                    if (response !== ''){
+                        alert(response);
+                    }
+                    $('#closeChangeModal').click();
                     setupMarksTable();
                 }
             });
         }
     });
 
-    var button_delete_yes = $('#buttonDeleteYes');
-    if (null == button_delete_yes) { return; }
+    var buttonDeleteYes = $('#buttonDeleteYes');
+    if (null == buttonDeleteYes) { return; }
 
-    var button_delete_no = $('#buttonDeleteNo');
-    if (null == button_delete_no) { return; }
+    var buttonDeleteNo = $('#buttonDeleteNo');
+    if (null == buttonDeleteNo) { return; }
 
-    button_delete_yes.click(function ()
+    buttonDeleteYes.click(function ()
     {
         if (null == id)
         {
-            $('#closeDeleteForm').click();
-            alert('Ошибка, повторите попытку!');
+            $('#closeDeleteModal').click();
+            alert('Такой записи не найдено, повторите попытку!');
             return;
         }
 
@@ -156,17 +159,17 @@ $(document).ready(function()
             data: "id=" + id,
             url: 'php/marks/delete_mark.php',
             type: 'POST',
-            success: function (response)
+            success: function ()
             {
-                $('#closeDeleteForm').click();
+                $('#closeDeleteModal').click();
                 setupMarksTable();
             }
         });
     });
 
-    button_delete_no.click(function ()
+    buttonDeleteNo.click(function ()
     {
-        $('#closeDeleteForm').click();
+        $('#closeDeleteModal').click();
         id = null;
     });
 

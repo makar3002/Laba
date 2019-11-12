@@ -1,7 +1,7 @@
-function journalDataValidating(){
-    var noteNumber = $('#number');
-    var noteMark = $('#mark');
-    var noteDate = $('#date');
+function journalDataValidating(type){
+    var noteNumber = $('#' + type + 'Number');
+    var noteMark = $('#' + type + 'Mark');
+    var noteDate = $('#' + type + 'Date');
     if (noteNumber.val().length !== 6) {
         alert("Неправильные данные в номере - только 6 символов!");
         return false;
