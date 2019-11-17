@@ -95,9 +95,14 @@
                 </div>
             </div>
 
-            <article class="m-5 entry">
-                <table class="table" id="table"></table>
-            </article>
+            <div id="table">
+
+            </div>
+
+            <div id="search">
+
+            </div>
+
             <script src="js/utils/validate.js" type="text/javascript"></script>
             <script src="js/utils/util.js" type="text/javascript"></script>
             <script src="js/general/ajax_request.js" type="text/javascript"></script>

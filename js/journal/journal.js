@@ -3,7 +3,7 @@ var journalNote;
 
 function getJournalNoteById(action) {
     $.ajax({
-        data: "id=" + id,
+        data: "journal_note_id=" + id,
         url: 'php/journal/get_journal_note_by_id.php',
         type: 'POST',
         success: function (response)
@@ -14,7 +14,7 @@ function getJournalNoteById(action) {
 
                 alert('Такой записи не найдено, повторите попытку!');
 
-                setupMarksTable();
+                setupJournalTable();
             }
             else
             {
@@ -48,7 +48,6 @@ function setupMarksSelect(){
         {
             $('.mark').html(response);
         }
-
     });
 }
 
@@ -99,6 +98,39 @@ function setupDeleteAndChangeButtons()
             getJournalNoteById(function ()
             {
                 $('#modalDeleteCenter').modal('show');
+            });
+        });
+    });
+
+    var markOfJournalNote = $('.markOfJournalNote');
+
+    markOfJournalNote.each(function ()
+    {
+        $(this).click(function (event)
+        {
+            event.preventDefault();
+
+            id = $(this).attr('id').substring(13);
+
+            $.ajax({
+                data: "journal_note_id=" + id ,
+                url: 'php/journal/get_mark_by_journal_note.php',
+                type: 'POST',
+                success: function (response)
+                {
+                    if (response !== '')
+                    {
+                        console.log(response);
+                        $('#search').html(response);
+                    }
+                    else
+                    {
+                        alert('Такой машины не существует!');
+                    }
+
+                    setupJournalTable();
+                    setupMarksSelect();
+                }
             });
         });
     });

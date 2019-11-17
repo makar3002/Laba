@@ -31,11 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         if (isset($_FILES['file']) && !empty($_FILES['file']['name']))
         {
             $mark_logo = $_FILES['file'];
-            var_dump($_FILES['file']);
             if ($mark_logo['error'] !== UPLOAD_ERR_OK && $mark_logo['error'] !== UPLOAD_ERR_NO_FILE)
             {
                 echo "Произошла ошибка!";
-                echo $mark_logo['error'];
                 exit;
             }
 

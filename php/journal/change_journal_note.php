@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $marks_id = array_column($all_marks, 'id');
 
         $journal_note = $journal_table->read_by_id(array($id));
-        var_dump($journal_note);
+
         if ($journal_note[0]['user_id'] == $user_id && mb_strlen($number) == 6 && check_format($date, 'date') && in_array($mark, $marks_id)) { //валидируем данные
             $journal_table->update(array($number, $mark, $date, $id));
         }

@@ -103,7 +103,6 @@ main::after,
 }
 
 article.entry {
-  min-height: 100px;
   margin: 0 60px 40px;
   background-color: rgba(241, 196, 15, 0.1);
   border-radius: 10px;

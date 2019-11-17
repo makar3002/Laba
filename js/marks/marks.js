@@ -3,7 +3,7 @@ var mark_name;
 
 function getMarkById(action) {
     $.ajax({
-        data: "id=" + id,
+        data: "mark_id=" + id,
         url: 'php/marks/get_mark_by_id.php',
         type: 'POST',
         success: function (response)
@@ -76,6 +76,37 @@ function setupDeleteAndChangeButtons()
             getMarkById(function ()
             {
                 $('#modalDeleteCenter').modal('show');
+            });
+        });
+    });
+
+    var journalNotesOfMarkButtons = $('.journalNotesOfMark');
+
+    journalNotesOfMarkButtons.each(function ()
+    {
+        $(this).click(function (event)
+        {
+            event.preventDefault();
+
+            id = $(this).attr('id').substring(5);
+
+            $.ajax({
+                data: "mark_id=" + id ,
+                url: 'php/marks/get_journal_notes_by_mark.php',
+                type: 'POST',
+                success: function (response)
+                {
+                    if (response !== '')
+                    {
+                        $('#search').html(response);
+                    }
+                    else
+                    {
+                        alert('Такой марки не существует!');
+                    }
+
+                    setupMarksTable();
+                }
             });
         });
     });

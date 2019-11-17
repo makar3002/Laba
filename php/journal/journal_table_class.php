@@ -17,6 +17,7 @@ class Journal
         return self::$instanse;
     }
 }
+
 class Journal_singleton extends Data
 {
     private $connection;
@@ -42,6 +43,22 @@ class Journal_singleton extends Data
             journal_notes
         WHERE
             id = ?"; //создаем запрос на получение данных
+        $sdh = $this->connection->prepare($query);
+        $sdh->execute($arr);
+        return $sdh->fetchAll(PDO::FETCH_ASSOC); //получаем данные и фетчим их в ассоциативный массив
+    }
+
+    public function read_by_mark_id_and_user_id($arr)
+    {
+        $query = "SELECT
+            journal_notes.id, number, mark_name, date, status
+        FROM
+            journal_notes
+        INNER JOIN marks ON journal_notes.mark_id = marks.id
+        WHERE
+            journal_notes.mark_id = ? AND journal_notes.user_id = ?
+        ORDER BY
+            date"; //создаем запрос на получение данных
         $sdh = $this->connection->prepare($query);
         $sdh->execute($arr);
         return $sdh->fetchAll(PDO::FETCH_ASSOC); //получаем данные и фетчим их в ассоциативный массив

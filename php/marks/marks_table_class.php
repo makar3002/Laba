@@ -50,7 +50,7 @@ class Marks_singleton extends Data
     public function read_by_id($arr)
     {
         $query = "SELECT 
-            mark_name
+            id, mark_name
         FROM 
             marks
         WHERE 
