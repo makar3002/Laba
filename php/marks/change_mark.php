@@ -1,6 +1,6 @@
 <?php
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/files/images/marks/");
-require_once('marks_table_class.php');
+require_once('marks_database_data_class.php');
 require_once('../general/check_format.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST['id']) && isset($_POST['name']))
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $mark_id = (int) $_POST['id'];
         $mark_name = $_POST['name'];
 
-        $mark = $marks_table->read_by_id(array($mark_id));
+        $mark = Marks::getInstance()->read_by_id(array($mark_id));
         if (empty($mark))
         {
             echo "Ошибка добавления!";
@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
         if (mb_strlen($mark_name) !== 0 && check_format($mark_name, 'word')) //валидируем данные
         {
-            $marks_table->update(array($mark_name, $mark_id));
+            Marks::getInstance()->update(array($mark_name, $mark_id));
 
-            $mark = $marks_table->read_by_id(array($mark_id));
+            $mark = Marks::getInstance()->read_by_id(array($mark_id));
 
             if ($mark[0]['mark_name'] != $mark_name)
             {

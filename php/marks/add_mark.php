@@ -1,6 +1,6 @@
 <?php
 define("UPLOAD_DIR", $_SERVER['DOCUMENT_ROOT']."/files/images/marks/");
-require_once('marks_table_class.php');
+require_once('marks_database_data_class.php');
 require_once('../general/check_format.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 	if(isset($_POST['name']) && !empty($_FILES['file']))
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 			exit;
 		}
 
-		$mark = $marks_table->read_by_name(array($mark_name));
+		$mark = Marks::getInstance()->read_by_name(array($mark_name));
 		if (!empty($mark))
 		{
 			echo "Такая марка уже существует!";
@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 		if (mb_strlen($mark_name) !== 0 && check_format($mark_name, 'word')) //валидируем данные
 		{
-			$marks_table->create(array($mark_name));
+			Marks::getInstance()->create(array($mark_name));
 		}
 
-		$mark = $marks_table->read_by_name(array($mark_name));
+		$mark = Marks::getInstance()->read_by_name(array($mark_name));
 		if (empty($mark))
 		{
 			echo "Ошибка добавления!";
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 		$success = move_uploaded_file($mark_logo['tmp_name'], UPLOAD_DIR . $file_name);
 		if (!$success)
 		{
-			$marks_table->delete(array($mark['id']));
+			Marks::getInstance()->delete(array($mark['id']));
 			echo "Не удалось сохранить файл!";
 			exit;
 		}

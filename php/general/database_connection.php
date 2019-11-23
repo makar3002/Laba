@@ -2,7 +2,7 @@
 class DB {
     protected static $instanse;
     protected function __construct (){}
-    public static function getInstanse()
+    public static function getInstance()
     {
         if (empty($instanse))
         {
@@ -29,6 +29,4 @@ class DB {
         return self::$instanse;
     }
 }
-
-$connection = DB::getInstanse();
 ?>

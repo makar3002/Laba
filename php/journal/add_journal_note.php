@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once('../general/check_format.php');
-require_once('../marks/marks_table_class.php');
-require_once('journal_table_class.php');
+require_once('../marks/marks_database_data_class.php');
+require_once('journal_database_data_class.php');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
 	var_dump($_POST);
@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 		$number = $_POST['number'];
 		$mark = $_POST['mark'];
 		$date = $_POST['date'];
-		$all_marks = $marks_table->read();
+		$all_marks = Marks::getInstance()->read();
 		$marks_id = array_column($all_marks, 'id');
 		if (mb_strlen($number) == 6 && check_format($date, 'date') && in_array($mark, $marks_id)) { //валидируем данные
-			$journal_table->create(array($user_id, $number, $mark, $date));
+			Journal::getInstance()->create(array($user_id, $number, $mark, $date));
 		}
 	}
 }

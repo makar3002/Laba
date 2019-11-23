@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('journal_table_class.php');
-require_once('../marks/marks_table_class.php');
+require_once('journal_database_data_class.php');
+require_once('../marks/marks_database_data_class.php');
 require_once('../general/check_format.php');
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
     var_dump($_SESSION);
@@ -13,13 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $mark = $_POST['mark'];
         $date = $_POST['date'];
 
-        $all_marks = $marks_table->read();
+        $all_marks = Marks::getInstance()->read();
         $marks_id = array_column($all_marks, 'id');
 
-        $journal_note = $journal_table->read_by_id(array($id));
+        $journal_note = Journal::getInstance()->read_by_id(array($id));
 
         if ($journal_note[0]['user_id'] == $user_id && mb_strlen($number) == 6 && check_format($date, 'date') && in_array($mark, $marks_id)) { //валидируем данные
-            $journal_table->update(array($number, $mark, $date, $id));
+            Journal::getInstance()->update(array($number, $mark, $date, $id));
         }
 
 

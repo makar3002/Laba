@@ -3,15 +3,15 @@ var journalNote;
 
 function getJournalNoteById(action) {
     $.ajax({
-        data: "journal_note_id=" + id,
-        url: 'php/journal/get_journal_note_by_id.php',
+        data: "journal_note_id=" + id + "&action=get_by_id&table=journal",
+        url: 'php/general/tables_crud.php',
         type: 'POST',
         success: function (response)
         {
             if (response === '')
             {
                 id = null;
-
+                $('#main_div').html(response);
                 alert('Такой записи не найдено, повторите попытку!');
 
                 setupJournalTable();
@@ -28,8 +28,9 @@ function getJournalNoteById(action) {
 
 function setupJournalTable(){
     $.ajax({
+        data: "action=get_table&table=journal",
         type: 'POST',
-        url: 'php/journal/get_journal_table.php',
+        url: 'php/general/tables_crud.php',
         success: function(response)
         {
             $('#table').html(response);
@@ -113,14 +114,13 @@ function setupDeleteAndChangeButtons()
             id = $(this).attr('id').substring(13);
 
             $.ajax({
-                data: "journal_note_id=" + id ,
-                url: 'php/journal/get_mark_by_journal_note.php',
+                data: "journal_note_id=" + id  + "&action=get_mark&table=journal",
+                url: 'php/general/tables_crud.php',
                 type: 'POST',
                 success: function (response)
                 {
                     if (response !== '')
                     {
-                        console.log(response);
                         $('#search').html(response);
                     }
                     else
@@ -149,11 +149,15 @@ $(document).ready(function() {
 
         if (journalDataValidating('add'))
         {
+            var formData = new FormData($('#createForm')[0]);
+            formData.append('action', 'add');
+            formData.append('table', 'journal');
+
             $.ajax({
-                data: new FormData($('#createForm')[0]),
+                data: formData,
                 processData: false,
                 contentType: false,
-                url: 'php/journal/add_journal_note.php',
+                url: 'php/general/tables_crud.php',
                 type: 'POST',
                 success: function () {
                     setupJournalTable();
@@ -173,6 +177,8 @@ $(document).ready(function() {
 
         var formData = new FormData($('#changeForm')[0]);
         formData.append('id', id);
+        formData.append('action', 'change');
+        formData.append('table', 'journal');
 
         if (journalDataValidating('change'))
         {
@@ -180,7 +186,7 @@ $(document).ready(function() {
                 data: formData,
                 processData: false,
                 contentType: false,
-                url: 'php/journal/change_journal_note.php',
+                url: 'php/general/tables_crud.php',
                 type: 'POST',
                 success: function ()
                 {
@@ -208,12 +214,11 @@ $(document).ready(function() {
         }
 
         $.ajax({
-            data: "id=" + id,
-            url: 'php/journal/delete_journal_note.php',
+            data: "id=" + id + "&action=delete&table=journal",
+            url: 'php/general/tables_crud.php',
             type: 'POST',
-            success: function (response)
+            success: function ()
             {
-                console.log(response);
                 $('#closeDeleteModal').click();
                 setupJournalTable();
                 setupMarksSelect();

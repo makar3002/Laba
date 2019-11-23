@@ -3,8 +3,8 @@ var mark_name;
 
 function getMarkById(action) {
     $.ajax({
-        data: "mark_id=" + id,
-        url: 'php/marks/get_mark_by_id.php',
+        data: "mark_id=" + id + "&action=get_by_id&table=marks",
+        url: 'php/general/tables_crud.php',
         type: 'POST',
         success: function (response)
         {
@@ -16,7 +16,7 @@ function getMarkById(action) {
             }
             else
             {
-                mark_name = response;
+                mark_name = $.parseJSON(response)['mark_name'];
 
                 action();
             }
@@ -27,8 +27,9 @@ function getMarkById(action) {
 function setupMarksTable()
 {
     $.ajax({
+        data: "action=get_table&table=marks",
         type: 'POST',
-        url: 'php/marks/get_marks_table.php',
+        url: 'php/general/tables_crud.php',
         success: function(response)
         {
             $('#table').html(response);
@@ -91,8 +92,8 @@ function setupDeleteAndChangeButtons()
             id = $(this).attr('id').substring(5);
 
             $.ajax({
-                data: "mark_id=" + id ,
-                url: 'php/marks/get_journal_notes_by_mark.php',
+                data: "mark_id=" + id + "&action=get_journal_notes&table=marks",
+                url: 'php/general/tables_crud.php',
                 type: 'POST',
                 success: function (response)
                 {
@@ -126,11 +127,15 @@ $(document).ready(function()
 
         if (markDataValidating('add'))
         {
+            var formData = new FormData($('#createForm')[0]);
+            formData.append('action', 'add');
+            formData.append('table', 'marks');
+
             $.ajax({
-                data: new FormData($('#createForm')[0]),
+                data: formData,
                 processData: false,
                 contentType: false,
-                url: 'php/marks/add_mark.php',
+                url: 'php/general/tables_crud.php',
                 type: 'POST',
                 success: function ()
                 {
@@ -150,6 +155,8 @@ $(document).ready(function()
 
         var formData = new FormData($('#changeForm')[0]);
         formData.append('id', id);
+        formData.append('action', 'change');
+        formData.append('table', 'marks');
 
         if (markDataValidating('change'))
         {
@@ -157,7 +164,7 @@ $(document).ready(function()
                 data: formData,
                 processData: false,
                 contentType: false,
-                url: 'php/marks/change_mark.php',
+                url: 'php/general/tables_crud.php',
                 type: 'POST',
                 success: function (response)
                 {
@@ -187,8 +194,8 @@ $(document).ready(function()
         }
 
         $.ajax({
-            data: "id=" + id,
-            url: 'php/marks/delete_mark.php',
+            data: "id=" + id + "&action=delete&table=marks",
+            url: 'php/general/tables_crud.php',
             type: 'POST',
             success: function ()
             {

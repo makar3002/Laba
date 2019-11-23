@@ -70,4 +70,5 @@ abstract class Data
 	abstract public function delete($arr);
 	public $db; //В формате PDO
 }
- ?>
+
+?>

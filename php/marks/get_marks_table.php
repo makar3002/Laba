@@ -1,6 +1,6 @@
 <?php
-require_once('marks_table_class.php');
+require_once('marks_database_data_class.php');
 include_once ('html_produce.php');
-$table = $marks_table->read();
+$table = Marks::getInstance()->read();
 echo marks_html_produce($table, '');
 ?>

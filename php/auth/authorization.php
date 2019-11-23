@@ -9,7 +9,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
                 $email = $_POST['email'];
                 $password = $_POST['password'];
                 $query = "SELECT * FROM users WHERE email = ?";
-                $sdh = $connection->prepare($query);
+                $sdh = DB::getInstance()->prepare($query);
                 $sdh->execute(array($email));
                 $row = $sdh->fetchAll()[0];
                 $count = $sdh->rowCount();

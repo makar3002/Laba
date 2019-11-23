@@ -1,8 +1,7 @@
 <?php
 function authorized_journal_html_produce($data, $email, $type = '', $mark_name = null)
 {
-    $code = '
-    <article class="m-5 entry">';
+    $code = '<article class="m-5 entry">';
     if (count($data) == 0)
     {
         $code .= '<h5>По пользователю ' . "$email" . ' нет данных' . (($type == 'byMark') ? (' с маркой '.$mark_name) : ''). '!</h5>';
@@ -37,18 +36,19 @@ function authorized_journal_html_produce($data, $email, $type = '', $mark_name =
         $code .= '</table>';
     }
 
-
     $code .= '</article>';
     return $code;
 }
 
-function unauthorized_journal_html_produce(){
+function unauthorized_journal_html_produce()
+{
     return '<article class="m-5 entry">
         <h5>Вы не авторизованы, авторизуйтесь, пожалуйста</h5>
     </article>';
 }
 
-function marks_select_html_produce($marks){
+function marks_select_html_produce($marks)
+{
     $code = '<option value = "">Не выбрано</option>';
     foreach ($marks as $mark){
         $code .= '<option value = '.$mark['id'].'>'.$mark['mark_name'].'</option>';
