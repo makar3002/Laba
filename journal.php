@@ -1,22 +1,18 @@
-<?php
-	session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <title>Автомобильный гараж</title>
     <meta charset="utf8">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <?php
+    require_once('php/general/css_and_js_include.php');
+    ?>
 </head>
 <body>
-    <?php
-		require_once ('php/general/header.php');
-    ?>
+    <div id="header">
+        <?php
+        require_once('php/general/header.php');
+        ?>
+    </div>
     <main class="pt-5 text-center">
 	<?php if (isset($_SESSION['user_id'])) {?>
 		<!-- Button trigger modal -->

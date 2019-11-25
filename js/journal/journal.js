@@ -43,8 +43,9 @@ function setupJournalTable(){
 
 function setupMarksSelect(){
     $.ajax({
+        data: "action=get_marks_select_list&table=journal",
         type: 'POST',
-        url: 'php/journal/marks_select_list.php',
+        url: 'php/general/tables_crud.php',
         success: function(response)
         {
             $('.mark').html(response);
@@ -234,4 +235,6 @@ $(document).ready(function() {
 
     setupJournalTable();
     setupMarksSelect();
+
+    $('#')
 });

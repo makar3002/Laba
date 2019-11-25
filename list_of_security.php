@@ -3,15 +3,16 @@
 <head>
     <title>Автомобильный гараж</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <?php
+    require_once('php/general/css_and_js_include.php');
+    ?>
 </head>
 <body>
-    <?php
-    session_start();
-    require_once('php/general/header.php');
-    ?>
+    <div id="header">
+        <?php
+        require_once('php/general/header.php');
+        ?>
+    </div>
     <main>
         <form class="form-signin" id="form" enctype="application/x-www-form-urlencoded">
             <div class="text-center mb-4">

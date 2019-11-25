@@ -15,49 +15,67 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
             case 'journal':
                 switch ($action)
                 {
-
                     case 'add':
-                        Journal_table::getInstance()->add(array(
-                            'number' => $_POST['number'],
-                            'mark' => $_POST['mark'],
-                            'date' => $_POST['date'],
-                            'user_id' => $_SESSION['user_id']
-                        ));
+                        if (isset($_POST['number']) && isset($_POST['mark']) && isset($_POST['date']))
+                        {
+                            Journal_table::getInstance()->add(array(
+                                'number' => $_POST['number'],
+                                'mark' => $_POST['mark'],
+                                'date' => $_POST['date'],
+                                'user_id' => (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null)
+                            ));
+                        }
                         break;
 
                     case 'get_by_id':
-                        Journal_table::getInstance()->get_by_id(array(
-                            'journal_note_id' => $_POST['journal_note_id']
-                        ));
+                        if (isset($_POST['journal_note_id']))
+                        {
+                            Journal_table::getInstance()->get_by_id(array(
+                                'journal_note_id' => $_POST['journal_note_id']
+                            ));
+                        }
                         break;
 
                     case 'get_table':
                         Journal_table::getInstance()->get_table(array(
-                            'email' => $_SESSION['email'],
-                            'user_id' => $_SESSION['user_id']
+                            'email' => (isset($_SESSION['email']) ? $_SESSION['email'] : null),
+                            'user_id' => (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null)
                         ));
                         break;
 
                     case 'get_mark':
-                        Journal_table::getInstance()->get_mark(array(
-                            'journal_note_id' => $_POST['journal_note_id']
-                        ));
+                        if (isset($_POST['journal_note_id']))
+                        {
+                            Journal_table::getInstance()->get_mark(array(
+                                'journal_note_id' => $_POST['journal_note_id']
+                            ));
+                        }
                         break;
 
                     case 'change':
-                        Journal_table::getInstance()->change(array(
-                            'id' => $_POST['id'],
-                            'number' => $_POST['number'],
-                            'mark' => $_POST['mark'],
-                            'date' => $_POST['date'],
-                            'user_id' => $_SESSION['user_id']
-                        ));
+                        if (isset($_POST['id']) && isset($_POST['number']) && isset($_POST['mark']) && isset($_POST['date']))
+                        {
+                            Journal_table::getInstance()->change(array(
+                                'id' => $_POST['id'],
+                                'number' => $_POST['number'],
+                                'mark' => $_POST['mark'],
+                                'date' => $_POST['date'],
+                                'user_id' => (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null)
+                            ));
+                        }
                         break;
 
                     case 'delete':
-                        Journal_table::getInstance()->delete(array(
-                            'id' => $_POST['id']
-                        ));
+                        if (isset($_POST['id']))
+                        {
+                            Journal_table::getInstance()->delete(array(
+                                'id' => $_POST['id']
+                            ));
+                        }
+                        break;
+
+                    case 'get_marks_select_list':
+                        Journal_table::getInstance()->get_marks_select_list();
                         break;
 
                     default:
@@ -70,16 +88,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
                 {
 
                     case 'add':
-                        Marks_table::getInstance()->add(array(
-                            'name' => $_POST['name'],
-                            'file' => $_FILES['file']
-                        ));
+                        if (isset($_POST['name']))
+                        {
+                            Marks_table::getInstance()->add(array(
+                                'name' => $_POST['name'],
+                                'file' => $_FILES['file']
+                            ));
+                        }
                         break;
 
                     case 'get_by_id':
-                        Marks_table::getInstance()->get_by_id(array(
-                            'mark_id' => $_POST['mark_id']
-                        ));
+                        if (isset($_POST['mark_id']))
+                        {
+                            Marks_table::getInstance()->get_by_id(array(
+                                'mark_id' => $_POST['mark_id']
+                            ));
+                        }
                         break;
 
                     case 'get_table':
@@ -87,26 +111,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
                         break;
 
                     case 'get_journal_notes':
-                        Marks_table::getInstance()->get_journal_notes(array(
-                            'email' => $_SESSION['email'],
-                            'user_id' => $_SESSION['user_id'],
-                            'mark_id' => $_POST['mark_id']
-                        ));
+                        if (isset($_POST['email']) && isset($_POST['user_id']) && isset($_POST['mark_id']))
+                        {
+                            Marks_table::getInstance()->get_journal_notes(array(
+                                'email' => (isset($_SESSION['email']) ? $_SESSION['email'] : null),
+                                'user_id' => (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null),
+                                'mark_id' => $_POST['mark_id']
+                            ));
+                        }
                         break;
 
                     case 'change':
-                        Marks_table::getInstance()->change(array(
-                            'id' => $_POST['id'],
-                            'name' => $_POST['name'],
-                            'file' => $_FILES['file']
-                        ));
+                        if (isset($_POST['id']) && isset($_POST['mark']))
+                        {
+                            Marks_table::getInstance()->change(array(
+                                'id' => $_POST['id'],
+                                'name' => $_POST['name'],
+                                'file' => $_FILES['file']
+                            ));
+                        }
                         break;
 
                     case 'delete':
-                        echo $_POST['id'];
-                        Marks_table::getInstance()->delete(array(
-                            'id' => $_POST['id']
-                        ));
+                        if (isset($_POST['id']))
+                        {
+                            Marks_table::getInstance()->delete(array(
+                                'id' => $_POST['id']
+                            ));
+                        }
                         break;
 
                     default:

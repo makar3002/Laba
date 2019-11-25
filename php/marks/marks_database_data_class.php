@@ -1,6 +1,6 @@
 <?php
-require_once ('../general/data.php');
-require_once ('../general/database_connection.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/php/general/data.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/php/general/database_connection.php');
 
 //class Marks
 //{
@@ -104,6 +104,20 @@ class Marks extends Data
             id = ?";
         $sdh = $this->connection->prepare($query);
         return $sdh->execute($id);
+    }
+
+    public function search($arr)
+    {
+        if (!empty($arr)) $arr[0] .= '*';
+
+        $query = "SELECT 
+            id, mark_name
+        FROM 
+            marks
+        WHERE MATCH mark_name AGAINST (? IN BOOLEAN MODE)";
+        $sdh = $this->connection->prepare($query);
+        $sdh->execute($arr);
+        return $sdh->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
-require_once ('../general/data.php');
-require_once ('../general/database_connection.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/php/general/data.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/php/general/database_connection.php');
 
 class Journal extends Data
 {
@@ -110,6 +110,21 @@ class Journal extends Data
             id = ?";
         $sdh = $this->connection->prepare($query);
         return $sdh->execute($id);
+    }
+
+    public function search($arr)
+    {
+        if (isset($arr[':request'])) $arr[':request'] .= '*';
+
+        $query = "SELECT
+            journal_notes.id, user_id, number, mark_name, date, status
+        FROM
+            journal_notes
+        INNER JOIN marks ON journal_notes.mark_id = marks.id
+        WHERE (MATCH mark_name AGAINST (:request IN BOOLEAN MODE) OR MATCH number AGAINST (:request IN BOOLEAN MODE)) AND user_id = :user_id";
+        $sdh = $this->connection->prepare($query);
+        $sdh->execute($arr);
+        return $sdh->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 

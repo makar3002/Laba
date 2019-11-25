@@ -12,15 +12,12 @@ header a{
   font-size: 20px;
 }
 
-.btn {
+.sign-in-btn {
   background-color: #F1C40F;
-}
-
-.btn-primary {
   border-color: #c7a500;
 }
 
-.btn-primary:hover {
+.sign-in-btn:hover {
   color: #fff;
   background-color: #c7a500;
   border-color: #c7a500;
@@ -92,7 +89,7 @@ header a{
   color: #777;
 }
 
-.form-control:focus {
+.sign-in-form-control:focus {
   color: #495057;
   background-color: #fff;
   border-color: #fffa5c;
@@ -100,7 +97,7 @@ header a{
   box-shadow: 0 0 0 0.2rem rgba(252, 255, 0, 0.5);
 }
 
-.form-control{
+.sign-in-form-control{
   background-color: #ffff81 !important;
 }
 

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <title>Автомобильный гараж</title>
-  <meta charset="utf8">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
+    <title>Автомобильный гараж</title>
+    <meta charset="utf8">
+    <?php
+    require_once('php/general/css_and_js_include.php');
+    ?>
 </head>
 <body>
-    <?php
-    session_start();
-    require_once('php/general/header.php');
-    ?>
+    <div id="header">
+        <?php
+        require_once('php/general/header.php');
+        ?>
+    </div>
     <main>
         <article class="m-5 entry">
             <section>

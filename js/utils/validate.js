@@ -1,3 +1,27 @@
+function signInDataValidating() {
+    var authPassword = $('#auth-password');
+    if (authPassword.val().length <= 5) {
+        alert("Неправильный пароль - должно быть больше 5 символов!");
+        return false;
+    }
+    return true;
+}
+
+function signUpDataValidating() {
+    var regPassword = $('#reg-password');
+    var anotherRegPassword = $('#another-reg-password');
+    if (regPassword.val().length <= 5) {
+        alert("Неправильный пароль - должно быть больше 5 символов!");
+        return false;
+    }
+
+    if (regPassword.val() !== anotherRegPassword.val()) {
+        alert("Введенные пароли не совпадают");
+        return false;
+    }
+    return true;
+}
+
 function journalDataValidating(type){
     var noteNumber = $('#' + type + 'Number');
     var noteMark = $('#' + type + 'Mark');

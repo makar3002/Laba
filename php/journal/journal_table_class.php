@@ -104,6 +104,12 @@ class Journal_table extends Table
             echo 'Всё путем';
         }
     }
+
+    public function get_marks_select_list()
+    {
+        $all_marks = Marks::getInstance()->read();
+        echo marks_select_html_produce($all_marks);
+    }
 }
 
 ?>

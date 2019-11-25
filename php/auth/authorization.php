@@ -1,39 +1,37 @@
 <?php
-require_once('php/general/database_connection.php');
-require_once('php/general/check_format.php');
-if (isset($_SERVER['HTTP_REFERER'])) {
-    if ($_SERVER['HTTP_REFERER'] != 'http://localhost/auth.php') $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        if (isset($_POST['email']) and isset($_POST['password'])) {
-            if (check_format($_POST['email'], 'email')) {
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-                $query = "SELECT * FROM users WHERE email = ?";
-                $sdh = DB::getInstance()->prepare($query);
-                $sdh->execute(array($email));
-                $row = $sdh->fetchAll()[0];
-                $count = $sdh->rowCount();
-                if ($count == 1) {
-                    if (password_verify($password, $row[2])) {
-                        $_SESSION['email'] = $email;
-                        $_SESSION['user_id'] = $row[0];
-                    }
-                    else $fmsg = "Ошибка, неверный email или пароль";
-                } elseif ($count == 0) {
-                    $fmsg = "Ошибка, неверный email или пароль";
-                } else {
-                    $fmsg = "Ошибка, что-то пошло не так, повторите попытку позже";
+require_once($_SERVER['DOCUMENT_ROOT'].'/php/general/database_connection.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/php/general/check_format.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/php/auth/users_table_class.php');
+if ($_SERVER['REQUEST_METHOD'] == "POST")
+{
+    if (isset($_POST['action']))
+    {
+        $action = $_POST['action'];
+        switch ($action)
+        {
+            case 'sign_in':
+                if (isset($_POST['email']) and isset($_POST['password'])) {
+                    Users_table::getInstance()->sign_in(array(
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password']
+                    ));
                 }
+                break;
 
-                if (isset($_SESSION['user_id']) && !isset($fmsg)) {
-                    $email = $_SESSION['email'];
-                    $location = $_SESSION['referer'];
-                    header("Location: $location");
+            case 'sign_up':
+                if (isset($_POST['email']) and isset($_POST['password'])) {
+                    Users_table::getInstance()->sign_up(array(
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password']
+                    ));
                 }
-            } else {
-                $fmsg = "Ошибка, неверный формат почты";
-            }
+                break;
+
+            case 'sign_out':
+                Users_table::getInstance()->sign_out();
+                break;
         }
+
     }
 }
 ?>

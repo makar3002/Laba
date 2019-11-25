@@ -3,14 +3,16 @@
     <head>
         <title>Автомобильный гараж</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/bootstrap.css">
+        <?php
+        require_once('php/general/css_and_js_include.php');
+        ?>
     </head>
     <body>
-    <?php
-    session_start();
-    require_once('php/general/header.php');
-    ?>
+    <div id="header">
+        <?php
+        require_once('php/general/header.php');
+        ?>
+    </div>
     <main class="pt-5">
         <article class=" d-flex entry">
             <section class="m-3 idea">
