@@ -49,7 +49,7 @@ class User{
 			$query = "SELECT * FROM users WHERE email = ?";
 			$stmt = DataBase::Connection()->prepare($query);
 			$stmt->execute(array($this->email));
-			$row = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() > 0){
 				if(password_verify($this->password, $row["password"])){
 					$this->firstName = $row["firstName"];

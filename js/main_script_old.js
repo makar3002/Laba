@@ -43,35 +43,10 @@ function getCookie(cname) {
     return "";
 }
 
-function modalFormMessage(mes){
-	$("#modalFormMain").html(`
-	<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalFormMessage">
-		<div class="modal-dialog modal-dialog-centered modal-sm">
-		
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Сообщение</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body text-center">
-				`+mes+`
-			</div>
-		</div>
-		</div>
-	</div>
-	  `);
-	$("#modalFormMessage").modal('show');
-	$('#modalFormMessage').on('hidden.bs.modal', function (e) {
-		$("#modalFormMain").html('');
-	})
-}
-
 var SetJournalTable = function(arr){
 	//data-toggle="modal" data-target="#modalCreateCenter"
 	var addButton = `
-	<button type="button" class="btn btn-primary my-2 p-3" id="buttonCreate">
+	<button type="button" class="btn btn-primary p-3" id="buttonCreate">
 		Добавить в журнал
   	</button>
 	`;
@@ -156,7 +131,7 @@ var SetJournalTable = function(arr){
 }
 
 var SetJournalPage = function(){
-	
+	$("main").html(`<div class="text-center" id="journalTable"></div>`);
 	var cookieData='{"jwt":"'+getCookie("jwt")+'"}';
 	//alert(cookieData);
 	$.ajax({
@@ -167,11 +142,10 @@ var SetJournalPage = function(){
        	data : cookieData,
        	success : function(result) {
 			//alert(result);   
-			$("main").html(`<div class="content"><div class="container text-center" id="journalTable"></div></div>`);
 			SetJournalTable(result);
         },
 		error: function(xhr, resp, text){
-           	modalFormMessage("Авторизируйтесь, чтобы зайти в журнал!");
+           	$("#journalTable").html("<p class='text-danger'>Неправильный логин или пароль!</p>"+text);
         }
 	});
 	//AJAX-запрос на сервер
@@ -183,50 +157,29 @@ var SetJournalPage = function(){
 
 var SetIndexPage = function(){
 	$("main").html(`
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		<ol class="carousel-indicators">
-		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		<li data-target="#myCarousel" data-slide-to="1"></li>
-		<li data-target="#myCarousel" data-slide-to="2"></li>
-		</ol>
-		<div class="carousel-inner">
-		<div class="carousel-item active">
-			<img class="bd-placeholder-img" width="100%" height="100%" src="images/index/1.png" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ></img>
-			<div class="container">
-			<div class="carousel-caption text-left">
-				<h1>Представляем вам наш гараж!</h1>
-				<p>Стильные решения, высокая безопасность, низкие цены</p>
-			</div>
-			</div>
-		</div>
-		<div class="carousel-item">
-		<img class="bd-placeholder-img" width="100%" height="100%" src="images/index/2.jpg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ></img>
-			<div class="container">
-			<div class="carousel-caption">
-				<h1>Не только для автомобилей</h1>
-				<p>Наши гаражи - не только для хранения автомобилей, но и для приятного времяпровождения</p>
-			</div>
-			</div>
-		</div>
-		<div class="carousel-item">
-		<img class="bd-placeholder-img" width="100%" height="100%" src="images/index/3.jpg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ></img>
-			<div class="container">
-			<div class="carousel-caption text-right">
-				<h1>От классики до лофта</h1>
-				<p>Наш дизайн способен поразить даже искушенных ценителей</p>
-			</div>
-			</div>
-		</div>
-		</div>
-		<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="sr-only">Previous</span>
-		</a>
-		<a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="sr-only">Next</span>
-		</a>
-	</div>
+		<article class=" d-flex entry">
+			<section class="m-3 idea">
+				<h2>Автомобильный гараж</h2>
+				<h1>У нас только лучшие тачки!</h1>
+				<p>Качественный сервис, Экзибит позавидует!</p>
+				<p>Охрана и хранение вашей ласточки</p>
+				<p>Охрана и хранение вашей ласточки</p>
+			</section>
+			<section class="m-3 contacts">
+				<h1>Контакты: </h1>
+				<p>///...///</p>
+				<p>///...///</p>
+				<p>///...///</p>
+			</section>
+		</article>
+		<section class="photos">
+			<figure class="slides">
+				<img src="images/mainpage/1.jpg" alt="Машина 1">
+				<img src="images/mainpage/2.jpeg" alt="Машина 2">
+				<img src="images/mainpage/3.jpg" alt="Машина 3">
+				<img src="images/mainpage/4.jpg" alt="Машина 4">
+			</figure>
+		</section>
 		`);
 };
 
@@ -234,7 +187,7 @@ var SetHeaderButtons = function(){
 		var jwt = $.cookie("jwt");
 		if(jwt === undefined || jwt === '')
 		{
-			$("#header_buttons").html('<button type="button" class="btn btn-outline-primary mr-2 my-2 my-sm-0" data-toggle="modal" data-target="#modalFormAuth">Войти</button>' + '<button type="button" class="btn btn-outline-primary my-2 mr-2 my-sm-0" data-toggle="modal" data-target="#modalFormReg">Регистрация</button>');
+			$("#header_buttons").html('<button type="button" class="btn btn-outline-primary my-2 mx-2 my-sm-0" data-toggle="modal" data-target="#modalFormReg">Регистрация</button>'+'<button type="button" class="btn btn-outline-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalFormAuth">Войти</button>');
 			$("#modalFormHeader").html(`
 				<div class="modal fade" id="modalFormAuth" tabindex="-1" role="dialog" aria-labelledby="modalFormAuthTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -309,6 +262,7 @@ var SetHeaderButtons = function(){
 				
 				var form = $("#form_auth");
 				var form_data=JSON.stringify(form.serializeObject());
+				alert(form_data);
 				$.ajax({
 					url:"php/login.php",
 					type : "POST",
@@ -349,7 +303,7 @@ var SetHeaderButtons = function(){
 			});
 		}
 		else {
-			$("#header_buttons").html(`<button type="button" class="btn btn-outline-primary my-2 mr-2 my-sm-0" id="logout">Выйти</button>`);
+			$("#header_buttons").html(`<button type="button" class="btn btn-outline-primary my-2 mx-2 my-sm-0" id="logout">Выйти</button>`);
 			$("#logout").click(function(event){
 				    // удаление jwt
     				setCookie("jwt", "", 1);
