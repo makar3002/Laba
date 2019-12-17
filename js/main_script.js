@@ -68,17 +68,72 @@ function modalFormMessage(mes){
 	})
 }
 
+//В fields подается ассоциативный массив (map), у которого поля - названия полей формы,
+//а значения полей - {'type': ... , ' label': ...}, 
+//где type - тип поля, а label - надпись над полем формы 
+//Соотв. password - пароль, array - ассоциативный массив (map) с данными для select'а
+
+function modalForm(name, fields, buttonName, buttonCallback){
+	var formName = "modalForm";
+	var dataFormName = "dataModalForm";
+	var formFields = "";
+	fields.forEach(function(value, key, map){
+		switch(value.type){
+			case "date":
+			case "password":
+			case "text" : formFields+=`<div class="form-group">
+				<label for="${key}" class="col-form-label">${value.label}</label>
+				<input type="${value.type}" name="${key}" class="form-control" placeholder="${value.label}" required autofocus>
+				</div>`;
+				break;
+			case "select":
+				var selectOptions = "";
+				value.array.forEach(function(val, ind, ar){
+					selectOptions+=`<option value="${ind}">${val}</option>`;
+				});
+				formFields+=`<div class="form-group">
+				<label for="${key}" class="col-form-label">${value.label}</label>
+				<select name="${key}" id="addMark" class="form-control mark" required>
+				${selectOptions};
+				</select>
+				</div>`;
+		}
+	});
+	$("#modalFormMain").html(`
+					<div class="modal fade" id="${formName}" tabindex="-1" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modalLongTitle">${name}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form class="form" id="${dataFormName}" enctype="application/x-www-form-urlencoded">
+										${formFields}
+										<div class="modal-footer">
+											<button class="btn btn-primary" type="submit" id="modalFormButton">${buttonName}</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>`);
+					$("#modalFormButton").click(function(event){buttonCallback(event, formName, dataFormName)});
+					$("#modalForm").modal('show');
+					$('#modalForm').on('hidden.bs.modal', function (e) {
+						$("#modalFormMain").html('');
+					})
+}
+
 var SetJournalTable = function(arr){
-	//data-toggle="modal" data-target="#modalCreateCenter"
 	var addButton = `
 	<button type="button" class="btn btn-primary my-2 p-3" id="buttonCreate">
 		Добавить в журнал
   	</button>
 	`;
 	var table = `<table class="table">
-	<caption>
-		<h5>Журнал</h5>
-	</caption>
 	<tr>
 		<td width="7%">№</td>
 		<td width="22%">Номер автомобиля</td>
@@ -95,8 +150,8 @@ var SetJournalTable = function(arr){
             '<td width="22%">'+arr.values[i]['mark_name']+'</td>'+
             '<td width="22%">'+arr.values[i]['date']+'</td>'+
             '<td width="11%">'+arr.values[i]['status']+'</td>'+
-            '<td width="8%"><button type="button" class="btn btn-primary change p-0" id="button_chan_'+arr.values[i]['id']+'">Изменить</button></td>'+
-            '<td width="8%"><button type="button" class="btn btn-primary delete p-0" id="button_del_'+arr.values[i]['id']+'">Удалить</button></td>'+
+            '<td width="8%"><button type="button" class="btn btn-primary change px-2 py-0" id="button_chan_'+arr.values[i]['id']+'">Изменить</button></td>'+
+            '<td width="8%"><button type="button" class="btn btn-primary delete px-2 py-0" id="button_del_'+arr.values[i]['id']+'">Удалить</button></td>'+
         '</tr>';
 	}
 	table += '</table>';
@@ -107,11 +162,47 @@ var SetJournalTable = function(arr){
 			url: 'php/mark_notes/read.php',
 			dataType : 'json',
 			success: function(response){
-
 				var marksOptions = "";
+				var marks = new Map();
+				/*
 				for(var i = 0; i < response.values.length; i++){
-					marksOptions += '<option>'+response.values[i].mark_name+'</option>'
+					marksOptions += '<option value="'+response.values[i].id+'">'+response.values[i].mark_name+'</option>'
+					marks.set(response.values[i].id, response.values[i].mark_name);
 				}
+				*/
+				response.values.forEach(function(value, i, a){
+					marks.set(value.id, value.mark_name);
+				})
+				modalForm("Добавить в журнал", 
+					new Map([
+					["number", {label: "Номер автомобиля:", type: "text"}],
+					["mark_id", {label: "Марка автомобиля:", type: "select", array: marks}],
+					["date", {label: "Дата добавления:", type:"date"}]
+					]),
+					"Добавить",
+					function(event, formName, dataFormName){
+						event.preventDefault();
+						var form = $(`#${dataFormName}`);
+						var form_data=JSON.stringify(form.serializeObject());
+						form_data = '{"jwt":"'+$.cookie("jwt")+'",'+form_data.substring(1);
+						alert(form_data);
+						$.ajax({
+							url:"php/journal_note/create.php",
+							type: "POST",
+							contentType: 'raw',
+							data: form_data,
+							success: function(result){
+								$(`#${formName}`).modal('hide');
+								SetJournalPage();
+							},
+							error: function(xhr, resp, text){
+								$(`#${formName}`).modal('dispose');
+								modalFormMessage(`something gone wrong... ${text}`);
+							}
+						});
+					}
+				);
+				/*
 				$("#modalFormMain").html(`
 					<!-- Create Modal -->
 					<div class="modal fade" id="modalFormCreate" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
@@ -132,6 +223,7 @@ var SetJournalTable = function(arr){
 										<div class="form-group">
 											<label for="mark" class="col-form-label">Марка автомобиля:</label>
 											<select name="mark" id="addMark" class="form-control mark" required>
+											`+marksOptions+`
 											</select>
 										</div>
 										<div class="form-group">
@@ -139,17 +231,42 @@ var SetJournalTable = function(arr){
 											<input type="date" name="date" id="addDate" class="form-control" placeholder="Дата добавления" required>
 										</div>
 										<div class="modal-footer">
-											<button class="btn btn-primary" type="submit" id="buttonAdd">Добавить</button>
+											<button class="btn btn-primary" type="submit" id="buttonCreate">Добавить</button>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>`);
+					*/
+					/*
+				$("#createForm").on("sumbit", function(event){
+					//Потом здесь будет валидация
+					event.preventDefault();
+					var form = $("#createForm");
+					var form_data=JSON.stringify(form.serializeObject());
+					form_data = '{"jwt":"'+$.cookie("jwt")+'",'+form_data.substring(1);
+					alert(form_data);
+					/*
+					$.ajax({
+						url:"php/journal_note/create.php",
+						type: "POST",
+						contentType: 'raw',
+						data: form_data,
+						success: function(result){
+
+						},
+						error: function(xhr, resp, text){
+							
+						}
+					});
+						
+				});
 				$("#modalFormCreate").modal('show');
 				$('#modalFormCreate').on('hidden.bs.modal', function (e) {
 					$("#modalFormMain").html('');
 				})
+				*/
 			}
 		});
 	});
@@ -374,6 +491,25 @@ $(document).ready(function() {
 	$("#index").click(function(event){
 		event.preventDefault();
 		SetIndexPage();	
+	})
+	$("#MB2").click(function(event){
+		event.preventDefault();
+		modalForm("ТЕСТ", new Map([
+			["name1", {label: 'label', type: "text"}],
+			["name2", {label: 'Another label', type: "password"}],
+			["name3", {label: 'cool select', type: "select", array: new Map([
+				["1" ,"first"],
+				["2", "second"],
+				["4", "last"]])}]
+		]),
+		"testButton",
+		function(event, formName, dataFormName){
+			event.preventDefault();
+			var form = $(`#${dataFormName}`);
+			var form_data=JSON.stringify(form.serializeObject());
+			alert(form_data);
+			$(`#${formName}.close`).click();
+		})
 	})
 	SetHeaderButtons();
 	SetIndexPage();

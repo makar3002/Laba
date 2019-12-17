@@ -82,7 +82,7 @@ class JournalNote{
 
 	public function delete(){
 		//Удаляем по ключу id
-		$query = "DELETE FROM journal_notes WHERE id = ?"
+		$query = "DELETE FROM journal_notes WHERE id = ?";
 		$stmt = DataBase::Connection()->prepare($query);
 		if($stmt->execute(array($this->id)))
 			return true;

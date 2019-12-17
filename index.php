@@ -36,6 +36,11 @@
                 padding: 4rem 2rem;
             }
 
+            #journalTable{
+                border: 0.1rem dashed #82beff;
+                border-radius: 30px;
+            }
+
     	</style>
     </head>
     <body>
@@ -64,11 +69,17 @@
                     <li class="nav-item">
                     <a class="nav-link" href="#" id="magic_button">Cookie</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#" id="MB2">Another MB</a>
+                    </li>
+                    <li>
+                        <form class="form-inline mt-2 mt-md-0">
+                            <input class="form-control mr-sm-2 mx-2" type="text" placeholder="Поиск" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Поиск</button>
+                        </form>
+                    </li>
                 </ul>
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Поиск" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Поиск</button>
-                </form>
+                
                 <span id="header_buttons"></div>
                 </div>
             </nav>

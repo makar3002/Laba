@@ -19,15 +19,16 @@ $jwt = isset($data->jwt) ? $data->jwt : "";
 if(!empty($jwt)){
     try{
         $decoded = JWT::decode($jwt, $key, array('HS256'));
-        $user = new User($decoded);
+        //$user = new User($decoded);
         //echo $user->id;
+        //echo $decoded->data->id;
         $query = "SELECT journal_notes.id, number, mark_name, date, status
         FROM journal_notes
         INNER JOIN marks ON journal_notes.mark_id = marks.id
-        WHERE journal_notes.user_id = 1
+        WHERE journal_notes.user_id = ?
         ORDER BY -date";
         $stmt = DataBase::Connection()->prepare($query);
-        $stmt->execute(array($user->id));
+        $stmt->execute(array($decoded->data->id));
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         http_response_code(200);
         echo json_encode(array(

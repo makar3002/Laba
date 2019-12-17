@@ -52,6 +52,7 @@ class User{
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() > 0){
 				if(password_verify($this->password, $row["password"])){
+					$this->id = $row["id"];
 					$this->firstName = $row["firstName"];
 					$this->lastName = $row["lastName"];
 					$this->nickname = $row["nickname"];
@@ -161,4 +162,5 @@ class User{
 	    return $jwt;
 	}
 }
+
 ?>
